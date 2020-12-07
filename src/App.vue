@@ -128,11 +128,10 @@ export default {
       if (formchange.includes(string)) { return false } else return true
     },
     Confirm_Filter (e) {
-      let formChange = this.form
-      formChange = {Temlate: 'haha'}
-      alert(formChange.Temlate)
-
+      let formChange = this.form[0].Temlate
+      formChange = formChange + 'haha'
       this.isModalVisible = e.isModalVisible
+      alert(formChange)
       // let formChange2 = []
       // formChange2 = formChange
 
