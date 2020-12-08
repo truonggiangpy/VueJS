@@ -52,15 +52,15 @@
                 </div>
               </div>
             <div style="flex: 1">
-              <label>Version Date</label>
-              <input class="create" type="date" v-model="VersionDate" />
-               <div>
               <label >Active: </label>
               <select
               v-model="Active">
                 <option value="Active">Active</option>
                 <option value="Archive">Archive</option>
               </select>
+              <div>
+                <label>Version Date</label>
+              <input class="create" type="date" v-model="VersionDate" />
               </div>
             </div>
             </div>
@@ -124,6 +124,7 @@ export default {
         data.Active = this.Active
         data.checkall = 'loc'
       }
+      // alert(data.VersionDate)
       this.$emit('Confirm_Filter', data)
       this.Temlate = ''
       this.Type = ''

@@ -39,27 +39,36 @@
     </div>
     <hr />
     <div class="container2">
-      <div style="color:blue">
-        <a
-          v-on:click="Handlechange"
-          href="#id01"
-          id="Union"
-          style="color: blue;"
-          >+ Union Templates &nbsp; &nbsp;</a
-        >
-      </div>
-      <div style="color:blue">
-        <a v-on:click="addtableline" href="#" id="Filter" style="color: blue;"
-          >Add Filter &nbsp; &nbsp;</a
-        >
-      </div>
+      <div id='control'>
         <div style="color:blue">
-        <a v-on:click="FilterData" href="#" id="FilterData" style="color: blue;"
-          >Filter data &nbsp; &nbsp;</a
-        >
+          <a
+            v-on:click="Handlechange"
+            href="#id01"
+            id="Union"
+            style="color: blue;"
+            >+ Union Templates &nbsp; &nbsp;</a
+          >
+        </div>
+        <div style="color:blue">
+          <a v-on:click="addtableline" href="#" id="Filter" style="color: blue;"
+            >Add Filter &nbsp; &nbsp;</a
+          >
+        </div>
+          <div style="color:blue">
+          <a v-on:click="FilterData" href="#" id="FilterData" style="color: blue;"
+            >Filter data &nbsp; &nbsp;</a
+          >
+        </div>
       </div>
+      <!-- <div style="color:blue">
+        <a v-on:click="SortData" href="#" id="FilterData" style="color: blue;"
+          >Sort &nbsp; &nbsp;</a
+        >
+      </div> -->
       <!-- <div>Add Filter  &nbsp; </div> -->
-      <div>OSearch</div>
+        <div class="search-wrapper">
+    <input id="hahaserch" type="text" v-model="search" placeholder="Search TemPlate Name"/>
+  </div>
     </div>
   </div>
 </template>
@@ -72,19 +81,30 @@ export default {
   },
   data () {
     return {
+      search: '',
       msg: '',
       Temlate: '',
       isModalVisible: 'true'
     }
   },
+  watch: {
+    search  () {
+      this.$emit('SortData', this.search)
+    }
+  },
+
   methods: {
-    FilterData (e) {
-      this.$emit('FilterData', this.isModalVisible)
-    },
     Handlechange (e) {
       var data = { chuoi: 'Create' }
       this.$emit('changeeven', data)
     },
+    FilterData (e) {
+      this.$emit('FilterData', this.isModalVisible)
+    },
+
+    // SortData (e) {
+    //   this.$emit('SortData', this.isModalVisible)
+    // },
 
     addtableline (e) {
       var data = {
@@ -110,6 +130,20 @@ export default {
 }
 </script>
 <style scoped>
+.container2 {
+  margin: 5px;
+}
+#control{
+  display: flex;
+  align-items: center;
+}
+#hahaserch {
+  width: 600px;
+  height: 30px;
+  border: 2px solid blue;
+  border-radius: 5px;
+
+}
 #container_child {
   display: flex;
   flex-direction: column;

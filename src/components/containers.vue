@@ -7,6 +7,7 @@
       v-on:changeeven="changeevenn"
       v-on:addfilter="addfilter"
       v-on:FilterData="FilterData"
+      v-on:SortData="SortData"
       v-on:removeline="removeline"
       v-on:Cancel_AddFilter="Cancel_AddFilter"
       v-on:Confirm_AddFilter="Confirm_AddFilter"
@@ -48,6 +49,9 @@ export default {
     },
     FilterData (e) {
       this.$emit('FilterData', e)
+    },
+    SortData (e) {
+      this.$emit('SortData', e)
     },
     removeline (e) {
       this.$emit('removeline', e)

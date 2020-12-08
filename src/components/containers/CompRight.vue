@@ -5,6 +5,8 @@
       v-on:addfilter="addfilter"
       v-on:changeeven="changeevenn"
       v-on:FilterData="FilterData"
+      v-on:SortData="SortData"
+
     />
     <CompTable
        v-bind:index_edit="index_edit"
@@ -42,6 +44,9 @@ export default {
   methods: {
     FilterData (e) {
       this.$emit('FilterData', e)
+    },
+    SortData (e) {
+      this.$emit('SortData', e)
     },
     changeevenn (e) {
       this.$emit('changeeven', e)
