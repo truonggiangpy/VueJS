@@ -8,6 +8,7 @@
       v-on:changeeven="changeevenn"
       v-on:addfilter="addfilter"
       v-on:FilterData="FilterData"
+      v-on:SearchData="SearchData"
       v-on:SortData="SortData"
       v-on:removeline="removeline"
       v-on:Cancel_AddFilter="Cancel_AddFilter"
@@ -317,8 +318,12 @@ export default {
         this.formtam.push(this.form[i])
       }
     },
-    SortData (e) {
+    SearchData (e) {
       this.changeSearch = e
+    },
+    sortData (e) {
+      alert(e)
+      this.$emit('SortData', e)
     },
     removeline (e) {
       this.evenremove = e

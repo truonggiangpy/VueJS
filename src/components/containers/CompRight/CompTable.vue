@@ -6,12 +6,12 @@
       <div class="style col1" style="border-top-left-radius: 10px">
         Form ID#
       </div>
-      <div class="style col2">TemPlate Name</div>
-      <div class="style col3">Type</div>
-      <div class="style col4">Company</div>
-      <div class="style col5">Version Date</div>
-      <div class="style col6">Expiration D</div>
-      <div class="style col7">ACTIVE</div>
+      <div class="style col2" v-on:click="sortData">TemPlate Name</div>
+      <div class="style col3" v-on:click="sortData">Type</div>
+      <div class="style col4" v-on:click="sortData">Company</div>
+      <div class="style col5" v-on:click="sortData">Version Date</div>
+      <div class="style col6" v-on:click="sortData">Expiration D</div>
+      <div class="style col7" v-on:click="sortData">ACTIVE</div>
       <div class="style col8" style="border-top-right-radius: 10px"></div>
     </div>
             {{formChange}}
@@ -247,63 +247,18 @@ export default {
     }
   },
 
-  // watch: {
-
-  //   index_edit () {
-  //     for (let i = 0; i <= this.form.length - 1; i++) {
-  //       this.form1.push(this.form[i])
-  //     }
-  //     // alert('truoc khi xóa index: ' + i + this.form1)
-  //     // this.form1.splice(0, 1)
-
-  //     // if (this.check(formChange[i].Temlate, e.Temlate)) {
-  //     //   formChange.splice(i, 1)
-  //     // }
-
-  //     alert(this.form1)
-  //     // alert(this.formChange[0].Temlate)
-  //     // if (e.Temlate !== '') {.
-  //     for (let i = this.form.length - 1; i >= 0; i--) {
-  //       if (this.form[i].Temlate.includes('1332')) {
-  //       } else {
-  //         this.form.splice(i, 1)
-  //         alert(this.form1)
-  //       }
-  //     }
-  //     //   this.$emit('input', this.form)
-  //     // },
-  //     // index_edit () {
-  //     //   this.$emit('input', this.index_edit)
-  //     // }
-  //     // form () {
-  //     //   this.formChange = this.form
-  //     //   //this.form = []
-  //     //   // alert(this.formChange[0].Temlate)
-  //     // this.form1.splice(2, 1)
-  //     // alert(this.form1)
-  //   }
-  // },
-
   computed: {
-    //     formf: {
-    //     this.index_edit ='dsf'
-    //   for (let i = this.formChange.length - 1; i >= 0; i--) {
-    //     if (this.check(this.formChange[i].Temlate, '1331')) {
-    //       this.formChange.splice(i, 1)
-    //     }
-    //   }
-    //   }
-    //   return
-    // }
-    // // index_edit () {
-    // //   this.$emit('input', this.index_edit)
-    // // }
-  },
 
-  // eslint-disable-next-line no-dupe-keys
+  },
   methods: {
     giang: function () {
       this.users.push(this.formtam)
+    },
+    sortData (e) {
+      let tt = e.target.innerHTML
+      let data = {haha: tt}
+      alert(data.haha)
+      this.$emit('SortData', data)
     },
     remove (e) {
       const elementtable = event.target.parentNode.parentNode.childNodes

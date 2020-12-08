@@ -89,7 +89,7 @@ export default {
   },
   watch: {
     search  () {
-      this.$emit('SortData', this.search)
+      this.$emit('SearchData', this.search)
     }
   },
 
