@@ -52,16 +52,15 @@
                 </div>
               </div>
             <div style="flex: 1">
-              <label >ACTIVE: </label>
+              <label>Version Date</label>
+              <input class="create" type="date" v-model="VersionDate" />
+               <div>
+              <label >Active: </label>
               <select
               v-model="Active">
-                <option value="Payoll">Active</option>
-                <option value="Production">Archive</option>
+                <option value="Active">Active</option>
+                <option value="Archive">Archive</option>
               </select>
-              <div>
-                <label>Version Date</label>
-              <input class="create" type="date" v-model="VersionDate" />
-
               </div>
             </div>
             </div>
@@ -109,14 +108,13 @@ export default {
     },
     Filter (e) {
       let data = {}
-      alert(this.checkedNames[0])
-
       if (this.checkedNames[0] === 'all') {
         data.Temlate = ''
         data.Type = ''
         data.Company = ''
         data.VersionDate = ''
         data.Active = ''
+        data.checkall = 'all'
       } else {
         data.checkedNames = this.checkedNames
         data.Temlate = this.Temlate
@@ -124,6 +122,7 @@ export default {
         data.Company = this.Company
         data.VersionDate = this.VersionDate
         data.Active = this.Active
+        data.checkall = 'loc'
       }
       this.$emit('Confirm_Filter', data)
       this.Temlate = ''

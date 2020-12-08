@@ -1,14 +1,14 @@
 <template>
   <div id="container_right">
     <CompControl
-      v-bind:form="form"
+      v-bind:formtam="formtam"
       v-on:addfilter="addfilter"
       v-on:changeeven="changeevenn"
       v-on:FilterData="FilterData"
     />
     <CompTable
        v-bind:index_edit="index_edit"
-      v-bind:form="form"
+      v-bind:formtam="formtam"
       v-on:removeline="removeline"
       v-on:Cancel_AddFilter="Cancel_AddFilter"
       v-on:Confirm_AddFilter="Confirm_AddFilter"
@@ -26,7 +26,7 @@ import CompTable from './CompRight/CompTable.vue'
 export default {
   name: 'Contaiv',
   props: {
-    form: Array,
+    formtam: Array,
     index_edit: String
   },
   data () {

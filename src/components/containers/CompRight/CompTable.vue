@@ -1,5 +1,7 @@
 <template>
+
   <div id="bang">
+
     <div class="flex-container">
       <div class="style col1" style="border-top-left-radius: 10px">
         Form ID#
@@ -12,11 +14,12 @@
       <div class="style col7">ACTIVE</div>
       <div class="style col8" style="border-top-right-radius: 10px"></div>
     </div>
+            {{formChange}}
     <div id="tablefull">
       <div class="tdata">
         <div
           class="flex-container"
-          v-for="user in form"
+          v-for="user in formtam"
           :key="user"
           v-on:dblclick="Edit_Line"
         >
@@ -42,7 +45,7 @@
               type="text"
               class="create"
               placeholder="Nhập Temlate"
-              v-model="form[index_edit].Temlate"
+              v-model="formtam[index_edit].Temlate"
               name="Temlate_Name"
             />
           </div>
@@ -67,7 +70,7 @@
               v-on:keyup.esc="Cancel_row"
               style="width: 90%"
               class="create"
-              v-model="form[index_edit].Type"
+              v-model="formtam[index_edit].Type"
               id="type"
               name="type"
             >
@@ -94,7 +97,7 @@
               v-on:keyup.enter="ConfirmEnter_row"
               v-on:keyup.esc="Cancel_row"
               style="width: 90%"
-              v-model="form[index_edit].Company"
+              v-model="formtam[index_edit].Company"
               type="text"
               class="create"
               id="fname"
@@ -122,7 +125,7 @@
               v-on:keyup.enter="ConfirmEnter_row"
               v-on:keyup.esc="Cancel_row"
               style="width: 90%"
-              v-model="form[index_edit].VersionDate"
+              v-model="formtam[index_edit].VersionDate"
               type="date"
               class="create"
               id="myDate"
@@ -149,7 +152,7 @@
               v-on:keyup.enter="ConfirmEnter_row"
               v-on:keyup.esc="Cancel_row"
               style="width: 90%"
-              v-model="form[index_edit].ExpirationDate"
+              v-model="formtam[index_edit].ExpirationDate"
               type="date"
               class="create"
               id="myDate"
@@ -175,7 +178,7 @@
             <select
               v-on:keyup.enter="ConfirmEnter_row"
               v-on:keyup.esc="Cancel_row"
-              v-model="form[index_edit].Active"
+              v-model="formtam[index_edit].Active"
               style="width: 90%"
               class="create"
               id="country"
@@ -219,6 +222,7 @@
           <a href="javascript:;" class="next"> &rarr; </a>
         </button>
       </div>
+
     </div>
   </div>
 </template>
@@ -226,20 +230,12 @@
 export default {
   name: 'bang',
   props: {
-    form: Array[{}],
+    formtam: Array[{}],
     index_edit: String
   },
-  watch: {
-    form () {
-      this.$emit('input', this.form)
-    },
-    index_edit () {
-      this.$emit('input', this.index_edit)
-    }
-  },
-
   data () {
     return {
+      form1: [],
       idform: '',
       Temlate: '',
       Type: '',
@@ -247,12 +243,67 @@ export default {
       VersionDate: '',
       ExpirationDate: '',
       Active: ''
+
     }
   },
 
+  // watch: {
+
+  //   index_edit () {
+  //     for (let i = 0; i <= this.form.length - 1; i++) {
+  //       this.form1.push(this.form[i])
+  //     }
+  //     // alert('truoc khi xóa index: ' + i + this.form1)
+  //     // this.form1.splice(0, 1)
+
+  //     // if (this.check(formChange[i].Temlate, e.Temlate)) {
+  //     //   formChange.splice(i, 1)
+  //     // }
+
+  //     alert(this.form1)
+  //     // alert(this.formChange[0].Temlate)
+  //     // if (e.Temlate !== '') {.
+  //     for (let i = this.form.length - 1; i >= 0; i--) {
+  //       if (this.form[i].Temlate.includes('1332')) {
+  //       } else {
+  //         this.form.splice(i, 1)
+  //         alert(this.form1)
+  //       }
+  //     }
+  //     //   this.$emit('input', this.form)
+  //     // },
+  //     // index_edit () {
+  //     //   this.$emit('input', this.index_edit)
+  //     // }
+  //     // form () {
+  //     //   this.formChange = this.form
+  //     //   //this.form = []
+  //     //   // alert(this.formChange[0].Temlate)
+  //     // this.form1.splice(2, 1)
+  //     // alert(this.form1)
+  //   }
+  // },
+
+  computed: {
+    //     formf: {
+    //     this.index_edit ='dsf'
+    //   for (let i = this.formChange.length - 1; i >= 0; i--) {
+    //     if (this.check(this.formChange[i].Temlate, '1331')) {
+    //       this.formChange.splice(i, 1)
+    //     }
+    //   }
+    //   }
+    //   return
+    // }
+    // // index_edit () {
+    // //   this.$emit('input', this.index_edit)
+    // // }
+  },
+
+  // eslint-disable-next-line no-dupe-keys
   methods: {
     giang: function () {
-      this.users.push(this.form)
+      this.users.push(this.formtam)
     },
     remove (e) {
       const elementtable = event.target.parentNode.parentNode.childNodes
@@ -342,13 +393,13 @@ export default {
       } else {
         let getidaddfilterC = e.target.parentNode.parentNode.childNodes
         let id = getidaddfilterC[0].innerHTML
-        let getTemlate = this.form[this.index_edit].Temlate
+        let getTemlate = this.formtam[this.index_edit].Temlate
 
-        let getType = this.form[this.index_edit].Type
-        let getCompany = this.form[this.index_edit].Company
-        let getVersionDate = this.form[this.index_edit].VersionDate
-        let getExpirationDate = this.form[this.index_edit].ExpirationDate
-        let getActive = this.form[this.index_edit].Active
+        let getType = this.formtam[this.index_edit].Type
+        let getCompany = this.formtam[this.index_edit].Company
+        let getVersionDate = this.formtam[this.index_edit].VersionDate
+        let getExpirationDate = this.formtam[this.index_edit].ExpirationDate
+        let getActive = this.formtam[this.index_edit].Active
         let DataAddfilterC = {
           idfrom: id,
           Temlate: getTemlate,

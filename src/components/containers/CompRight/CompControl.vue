@@ -68,7 +68,7 @@
 export default {
   name: 'Control',
   props: {
-    form: Object
+    formtam: Object
   },
   data () {
     return {

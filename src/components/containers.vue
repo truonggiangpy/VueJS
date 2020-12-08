@@ -3,7 +3,7 @@
     <CompLeft></CompLeft>
     <CompRight
     v-bind:index_edit="index_edit"
-      v-bind:form="form"
+      v-bind:formtam="formtam"
       v-on:changeeven="changeevenn"
       v-on:addfilter="addfilter"
       v-on:FilterData="FilterData"
@@ -26,7 +26,7 @@ export default {
   name: 'app',
 
   props: {
-    form: Array,
+    formtam: Array,
     index_edit: String
   },
   data () {

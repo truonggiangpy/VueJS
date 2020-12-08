@@ -1,10 +1,10 @@
 <template>
   <div id="app">
 <!-- //lọc dữ liệu sắp xếp tìm kiếm -->
-
+    <!-- <div>{{Loc}}</div> -->
     <containers
      v-bind:index_edit="index_edit"
-      v-bind:form="form"
+      v-bind:formtam="formtam"
       v-on:changeeven="changeevenn"
       v-on:addfilter="addfilter"
       v-on:FilterData="FilterData"
@@ -35,6 +35,7 @@ import containers from './components/containers.vue'
 import modal from './components/modal.vue'
 import modalLocDL from './components/ModelLocDL.vue'
 export default {
+
   name: 'App',
   components: {
     containers,
@@ -48,12 +49,15 @@ export default {
       title: 'giang',
       create_confirm_boolean: '',
       evenremove: {},
-      Temlate: '',
+      Temlate: 's',
       Type: '',
       Company: '',
       VersionDate: '',
       ExpirationDate: '',
-      Active: '',
+      Active: 'dá',
+      checkFilterData: 's',
+      formtam: [],
+      E: {},
 
       form: [
         // Temlate: this.Temlate,Type: this.Type, Company: this.Company,VersionDate: this.VersionDate, ExpirationDate: this.ExpirationDate, Active: this.Active
@@ -72,7 +76,7 @@ export default {
           idfrom: '1112',
           Temlate: '13325243-AFM-B6-TV-RADIOCOMMERCIALS-11-15',
           Type: 'Production',
-          Company: 'Peptico',
+          Company: 'Haitico',
           VersionDate: '20-11-2020',
           ExpirationDate: '20-11-2020',
           Active: 'Active',
@@ -82,9 +86,9 @@ export default {
         {
           idfrom: '1113',
           Temlate: '133352435-AFM-B6-TV-RADIOCOMMERCIALS-11-15',
-          Type: 'Production',
-          Company: 'Peptico',
-          VersionDate: '20-11-2020',
+          Type: 'Payoll',
+          Company: 'Haitico',
+          VersionDate: '14-12-2020',
           ExpirationDate: '20-11-2020',
           Active: 'Active',
           node1: 'Remove',
@@ -104,9 +108,9 @@ export default {
         {
           idfrom: '1115',
           Temlate: '1335-AFM-B6-TV-RADIOCOMMERCIALS-11-15',
-          Type: 'Production',
+          Type: 'Payoll',
           Company: 'Peptico',
-          VersionDate: '20-11-2020',
+          VersionDate: '11-11-2020',
           ExpirationDate: '20-11-2020',
           Active: 'Active',
           node1: 'Remove',
@@ -115,7 +119,90 @@ export default {
       ]
     }
   },
+  created () {
+    for (let i = 0; i <= this.form.length - 1; i++) {
+      this.formtam.push(this.form[i])
+    }
+  },
+  computed: {// khi có data nào bên trong hàm thay đổi thì sẻ gọi gàm computed thực thi trả về cho computed
 
+    // reversedMessage: function () {
+    //   // `this` points to the vm instance
+    //   return this.Temlate + 'abc'
+    // }
+  },
+
+  watch: {
+    checkFilterData () {
+      this.formtam = []
+      for (let i = 0; i <= this.form.length - 1; i++) {
+        this.formtam.push(this.form[i])
+      }
+
+      if (this.E.checkall === 'loc') {
+        for (let i = this.formtam.length - 1; i >= 0; i--) {
+          if (this.formtam[i].Temlate.includes(this.E.Temlate)) {
+          } else {
+            this.formtam.splice(i, 1)
+          }
+        }
+        for (let i = this.formtam.length - 1; i >= 0; i--) {
+          if (this.formtam[i].Type.includes(this.E.Type)) {
+          } else {
+            this.formtam.splice(i, 1)
+          }
+        }
+        for (let i = this.formtam.length - 1; i >= 0; i--) {
+          if (this.formtam[i].Company.includes(this.E.Company)) {
+          } else {
+            this.formtam.splice(i, 1)
+          }
+        }
+        for (let i = this.formtam.length - 1; i >= 0; i--) {
+          if (this.formtam[i].Active.includes(this.E.Active)) {
+          } else {
+            this.formtam.splice(i, 1)
+          }
+        }
+        for (let i = this.formtam.length - 1; i >= 0; i--) {
+          if (this.formtam[i].VersionDate.includes(this.convertDate(this.E.VersionDate, '-', 'yyyy_mm_dd'))) {
+          } else {
+            this.formtam.splice(i, 1)
+          }
+        }
+      } else {
+      }
+      // alert(this.formtam)
+      // if (this.formtam.length === 0) {
+      //   for (let i = 0; i <= this.form.length - 1; i++) {
+      //     this.formtam.push(this.form[i])
+      //   }
+      // }
+      // alert(this.formtam)
+      // if (this.E.checkall === 'loc') {
+      //   if (this.formtam.length !== 0) {
+      //     this.form = []
+      //     for (let i = 0; i <= this.formtam.length - 1; i++) {
+      //       this.form.push(this.formtam[i])
+      //     }
+      //     for (let i = this.form.length - 1; i >= 0; i--) {
+      //       if (this.form[i].Temlate.includes(this.E.Temlate)) {
+      //       } else {
+      //         this.form.splice(i, 1)
+      //       }
+      //     }
+      //   }
+      // } else {
+      //   this.form = []
+      //   for (let i = 0; i <= this.formtam.length - 1; i++) {
+      //     this.form.push(this.formtam[i])
+      //   }
+      // }
+      this.checkFilterData = ''
+    }
+
+  },
+  // ahihih test github
   methods: {
     // ChangeForm: function (form, formChange) {
     //   let Tem = []
@@ -128,16 +215,24 @@ export default {
       if (formchange.includes(string)) { return false } else return true
     },
     Confirm_Filter (e) {
-      let formChange = this.form[0].Temlate
-      formChange = formChange + 'haha'
+      this.E = e
+      this.checkFilterData = 'ahiis'
+      // if (e.checkall === 'loc') {
+      //   if (this.formtam.length !== 0) {
+      //     this.form = []
+      //     for (let i = 0; i <= this.formtam.length - 1; i++) {
+      //       this.form.push(this.formtam[i])
+      //     }
+      //     this.formtam = []
+      //   }
+      //   this.checkFilterData = 'ahiis'
+      // } else {
+      //   if (this.formtam.length !== 0) { this.form = this.formtam }
+      // }
+      // this.Temlate = 'fds'
+      // let formChange = this.form
       this.isModalVisible = e.isModalVisible
-      alert(formChange)
-      // let formChange2 = []
-      // formChange2 = formChange
-
-      // alert(this.formChange[0].Temlate)
-      // alert(e.Temlate + e.Type + e.Company + e.VersionDate + e.Active)
-      // let ob = {ahihi: 1}
+      // // alert(this.formChange[0].Temlate)
       // if (e.Temlate !== '') {
       //   for (let i = formChange.length - 1; i >= 0; i--) {
       //     if (this.check(formChange[i].Temlate, e.Temlate)) {
@@ -146,7 +241,6 @@ export default {
       //   }
       //   alert(formChange.length())
       // }
-      // this.form = formChange
     },
     showModal () {
       this.isModalVisible = true
@@ -210,18 +304,37 @@ export default {
       }
       this.form.Temlate = this.form.Temlate + ' '
       this.create_confirm_boolean = e.return_create_confirm_boolean
+      this.formtam = []
+      for (let i = 0; i <= this.form.length - 1; i++) {
+        this.formtam.push(this.form[i])
+      }
     },
     Click_Cancel_table (e) {
       this.create_confirm_boolean = e.return_create_confirm_boolean
+      this.formtam = []
+      for (let i = 0; i <= this.form.length - 1; i++) {
+        this.formtam.push(this.form[i])
+      }
     },
     changeevenn (e) {
       this.create_confirm_boolean = e.chuoi
       // console.log("apphihi"+ this.create_confirm_boolean)
       // this.$emit('changeeven',e)
+      this.formtam = []
+      for (let i = 0; i <= this.form.length - 1; i++) {
+        this.formtam.push(this.form[i])
+      }
     },
 
     // addfilter add table qua line
     addfilter (e) {
+      // alert(this.form)
+      // if (this.formtam.length !== 0) {
+      //   this.form = []
+      //   for (let i = 0; i <= this.formtam.length - 1; i++) {
+      //     this.form.push(this.formtam[i])
+      //   }
+      // }
       let i = 0
       let check = true
       for (i = 0; i < this.form.length; i++) {
@@ -233,14 +346,29 @@ export default {
         e.idfrom = this.random_number()
         // alert(e.node1)
         this.form.push(e)
+        // if (this.formtam.length !== 0) {
+        //   this.formtam.push(e)
+        // }
+      }
+      this.formtam = []
+      for (let i = 0; i <= this.form.length - 1; i++) {
+        this.formtam.push(this.form[i])
       }
     },
     FilterData (e) {
       this.isModalVisible = e
+      this.formtam = []
+      for (let i = 0; i <= this.form.length - 1; i++) {
+        this.formtam.push(this.form[i])
+      }
     },
 
     removeline (e) {
       this.evenremove = e
+      this.formtam = []
+      for (let i = 0; i <= this.form.length - 1; i++) {
+        this.formtam.push(this.form[i])
+      }
     },
 
     removelineModle (e) {
@@ -261,9 +389,17 @@ export default {
       } else {
         alert('đang có trường xử lý')
       }
+      this.formtam = []
+      for (let i = 0; i <= this.form.length - 1; i++) {
+        this.formtam.push(this.form[i])
+      }
     },
     Cancel_AddFilter (e) {
       this.form.pop()
+      this.formtam = []
+      for (let i = 0; i <= this.form.length - 1; i++) {
+        this.formtam.push(this.form[i])
+      }
     },
     Cancel_Edit_row (e) {
       let i = 0
@@ -274,6 +410,10 @@ export default {
         }
       }
       this.form.splice(index, 1, this.form[-2])
+      this.formtam = []
+      for (let i = 0; i <= this.form.length - 1; i++) {
+        this.formtam.push(this.form[i])
+      }
     },
     Confirm_AddFilter (e) {
       e.ExpirationDate = this.convertDate(e.ExpirationDate, '-', 'yyyy_mm_dd')
@@ -286,6 +426,10 @@ export default {
       //   this.VersionDate = "";
       //   this.ExpirationDate = "";
       //   this.Active = "";
+      this.formtam = []
+      for (let i = 0; i <= this.form.length - 1; i++) {
+        this.formtam.push(this.form[i])
+      }
     },
     Edit (e) {
       let i = 0
@@ -309,6 +453,10 @@ export default {
         this.form.splice(index, 1, e)
       }
       this.form[-2].node2 = 'Edit'
+      this.formtam = []
+      for (let i = 0; i <= this.form.length - 1; i++) {
+        this.formtam.push(this.form[i])
+      }
     },
     Editline (e) {
       let i = 0
@@ -332,6 +480,10 @@ export default {
         this.form.splice(index, 1, e)
       }
       this.form[-2].node2 = 'Edit'
+      this.formtam = []
+      for (let i = 0; i <= this.form.length - 1; i++) {
+        this.formtam.push(this.form[i])
+      }
     },
     Confirm_Edit (e) {
       let i = 0
@@ -344,6 +496,10 @@ export default {
         }
       }
       this.form.splice(index, 1, e)
+      this.formtam = []
+      for (let i = 0; i <= this.form.length - 1; i++) {
+        this.formtam.push(this.form[i])
+      }
     }
   }
 }
