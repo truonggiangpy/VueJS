@@ -51,7 +51,7 @@
         </div>
         <div style="color:blue">
           <a v-on:click="addtableline" href="#" id="Filter" style="color: blue;"
-            >Add Filter &nbsp; &nbsp;</a
+            >Add Data &nbsp; &nbsp;</a
           >
         </div>
           <div style="color:blue">
@@ -76,9 +76,6 @@
 <script>
 export default {
   name: 'Control',
-  props: {
-    formtam: Object
-  },
   data () {
     return {
       search: '',

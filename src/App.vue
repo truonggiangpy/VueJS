@@ -9,7 +9,7 @@
       v-on:addfilter="addfilter"
       v-on:FilterData="FilterData"
       v-on:SearchData="SearchData"
-      v-on:SortData="SortData"
+      v-on:SortDL="SortDL"
       v-on:removeline="removeline"
       v-on:Cancel_AddFilter="Cancel_AddFilter"
       v-on:Confirm_AddFilter="Confirm_AddFilter"
@@ -60,12 +60,13 @@ export default {
       checkFilterData: 's',
       formtam: [],
       E: {},
+      checkType_Sort: '',
 
       form: [
         // Temlate: this.Temlate,Type: this.Type, Company: this.Company,VersionDate: this.VersionDate, ExpirationDate: this.ExpirationDate, Active: this.Active
         {
-          idfrom: '1111',
-          Temlate: 'hahaha hihhi ',
+          idfrom: '1115',
+          Temlate: 'bahaha hihhi ',
           Type: 'Production',
           Company: 'Peptico',
           VersionDate: '17-12-2020',
@@ -75,18 +76,18 @@ export default {
           node2: 'Edit'
         },
         {
-          idfrom: '1112',
-          Temlate: '13325243-AFM-B6-TV-RADIOCOMMERCIALS-11-15',
+          idfrom: '1113',
+          Temlate: 'a3325243-AFM-B6-TV-RADIOCOMMERCIALS-11-15',
           Type: 'Production',
           Company: 'Haitico',
           VersionDate: '20-11-2020',
           ExpirationDate: '20-11-2020',
-          Active: 'Active',
+          Active: 'Archive',
           node1: 'Remove',
           node2: 'Edit'
         },
         {
-          idfrom: '1113',
+          idfrom: '1111',
           Temlate: 'huhuhahahahaahahahaah',
           Type: 'Payoll',
           Company: 'Haitico',
@@ -98,7 +99,7 @@ export default {
         },
         {
           idfrom: '1114',
-          Temlate: '1324-AFM-B6-TV-RADIOCOMMERCIALS-11-15',
+          Temlate: 'c324-AFM-B6-TV-RADIOCOMMERCIALS-11-15',
           Type: 'Production',
           Company: 'Peptico',
           VersionDate: '20-11-2020',
@@ -108,7 +109,7 @@ export default {
           node2: 'Edit'
         },
         {
-          idfrom: '1115',
+          idfrom: '1112',
           Temlate: '1999-AFM-B6-TV-RADIOCOMMERCIALS-11-15',
           Type: 'Payoll',
           Company: 'Peptico',
@@ -119,6 +120,11 @@ export default {
           node2: 'Edit'
         }
       ]
+    }
+  },
+  created () {
+    for (let i = 0; i <= this.form.length - 1; i++) {
+      this.formtam.push(this.form[i])
     }
   },
   computed: {// khi có data nào bên trong hàm thay đổi thì sẻ gọi gàm computed thực thi trả về cho computed
@@ -159,7 +165,6 @@ export default {
           }
         }
         if (this.E.VersionDate !== '' && this.E.VersionDate[4] === '-') { this.E.VersionDate = this.convertDate(this.E.VersionDate, '-', 'yyyy_mm_dd') }
-        alert(this.E.VersionDate)
         for (let i = this.formtam.length - 1; i >= 0; i--) {
           if (this.formtam[i].VersionDate.includes(this.E.VersionDate)) {
           } else {
@@ -175,7 +180,6 @@ export default {
       for (let i = 0; i <= this.form.length - 1; i++) {
         this.formtam.push(this.form[i])
       }
-
       for (let i = this.formtam.length - 1; i >= 0; i--) {
         if (this.formtam[i].Temlate.includes(this.changeSearch)) {
         } else {
@@ -184,15 +188,12 @@ export default {
       }
     }
   },
-  created () {
-    for (let i = 0; i <= this.form.length - 1; i++) {
-      this.formtam.push(this.form[i])
-    }
-  },
+
   methods: {
     check: function (formchange, string) {
       if (formchange.includes(string)) { return false } else return true
     },
+
     Confirm_Filter (e) {
       this.E = e
       this.checkFilterData = 'ahiis'
@@ -321,9 +322,74 @@ export default {
     SearchData (e) {
       this.changeSearch = e
     },
-    sortData (e) {
-      alert(e)
-      this.$emit('SortData', e)
+    SortDL (e) {
+      this.formtam = []
+      for (let i = 0; i <= this.form.length - 1; i++) {
+        this.formtam.push(this.form[i])
+      }
+      switch (e.haha) {
+        case 'Form ID#': for (let i = 0; i < this.formtam.length - 1; i++) { // buble sort
+          for (let j = this.formtam.length - 1; j > 0; j--) {
+            if (this.formtam[j].idfrom < this.formtam[ j - 1 ].idfrom) {
+              let tam = {}
+              tam = this.formtam[j]
+              this.formtam[j] = this.formtam[ j - 1 ]
+              this.formtam[ j - 1 ] = tam
+            }
+          }
+        }
+          break
+        case 'Type':
+          this.formtam.sort(function (a, b) {
+            let titleA = a.Type.toLowerCase()
+            let titleB = b.Type.toLowerCase()
+            if (titleA < titleB) return -1
+            if (titleA > titleB) return 1
+            return 0
+          })
+          break
+        case 'TemPlate Name':
+          this.formtam.sort(function (a, b) {
+            let titleA = a.Temlate.toLowerCase()
+            let titleB = b.Temlate.toLowerCase()
+            if (titleA < titleB) return -1
+            if (titleA > titleB) return 1
+            return 0
+          })
+          break
+        case 'Company':
+          this.formtam.sort(function (a, b) {
+            let titleA = a.Company.toLowerCase()
+            let titleB = b.Company.toLowerCase()
+            if (titleA < titleB) return -1
+            if (titleA > titleB) return 1
+            return 0
+          })
+          break
+        case 'ACTIVE':
+          this.formtam.sort(function (a, b) {
+            let titleA = a.Active.toLowerCase()
+            let titleB = b.Active.toLowerCase()
+            if (titleA < titleB) return -1
+            if (titleA > titleB) return 1
+            return 0
+          })
+          break
+        case 'Version Date':
+          this.formtam.sort(function (a, b) {
+            a = a.VersionDate.toString().split('-')
+            b = b.VersionDate.toString().split('-')
+            return a[2] - b[2] || a[1] - b[1] || a[0] - b[0]
+          })
+          break
+        case 'Expiration D':
+          this.formtam.sort(function (a, b) {
+            a = a.ExpirationDate.toString().split('-')
+            b = b.ExpirationDate.toString().split('-')
+            return a[2] - b[2] || a[1] - b[1] || a[0] - b[0]
+          })
+          break
+      }
     },
     removeline (e) {
       this.evenremove = e

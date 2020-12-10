@@ -3,9 +3,7 @@
   <div id="bang">
 
     <div class="flex-container">
-      <div class="style col1" style="border-top-left-radius: 10px">
-        Form ID#
-      </div>
+      <div v-on:click="sortData" class="style col1" style="border-top-left-radius: 10px">Form ID#</div>
       <div class="style col2" v-on:click="sortData">TemPlate Name</div>
       <div class="style col3" v-on:click="sortData">Type</div>
       <div class="style col4" v-on:click="sortData">Company</div>
@@ -14,13 +12,12 @@
       <div class="style col7" v-on:click="sortData">ACTIVE</div>
       <div class="style col8" style="border-top-right-radius: 10px"></div>
     </div>
-            {{formChange}}
     <div id="tablefull">
       <div class="tdata">
         <div
           class="flex-container"
-          v-for="user in formtam"
-          :key="user"
+          v-for="(user,idx) in formtam"
+          :key="idx"
           v-on:dblclick="Edit_Line"
         >
           <div class="col1">{{ user.idfrom }}</div>
@@ -230,7 +227,7 @@
 export default {
   name: 'bang',
   props: {
-    formtam: Array[{}],
+    formtam: Array,
     index_edit: String
   },
   data () {
@@ -257,8 +254,7 @@ export default {
     sortData (e) {
       let tt = e.target.innerHTML
       let data = {haha: tt}
-      alert(data.haha)
-      this.$emit('SortData', data)
+      this.$emit('SortDL', data)
     },
     remove (e) {
       const elementtable = event.target.parentNode.parentNode.childNodes
@@ -516,7 +512,11 @@ a {
   border: 1px solid black;
   color: white;
 }
-
+.flex-container > .style:hover {
+    background-color: rgb(247, 173, 173);
+    cursor: ns-resize;
+    color: black
+}
 .flex-container > div {
   background-color: rgb(255, 255, 255);
   color: rgb(0, 0, 0);

@@ -15,7 +15,7 @@
       v-on:Cancel_AddFilter="Cancel_AddFilter"
       v-on:Confirm_AddFilter="Confirm_AddFilter"
       v-on:Editline="Editline"
-      v-on:SortData="SortData"
+      v-on:SortDL="SortDL"
       v-on:Edit="Edit"
       v-on:Confirm_Edit="Confirm_Edit"
       v-on:Cancel_Edit_row="Cancel_Edit_row"
@@ -43,15 +43,15 @@ export default {
     CompTable
   },
   methods: {
-    sortData (e) {
-      alert('ahihai')
-      this.$emit('SortData', e)
-    },
+
     FilterData (e) {
       this.$emit('FilterData', e)
     },
     SearchData (e) {
       this.$emit('SearchData', e)
+    },
+    SortDL (e) {
+      this.$emit('SortDL', e)
     },
     changeevenn (e) {
       this.$emit('changeeven', e)
