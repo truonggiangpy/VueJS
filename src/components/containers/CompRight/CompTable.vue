@@ -212,10 +212,11 @@
         </div>
       </div>
       <div id="nextpage">
-        <button class="nextpage" name="button" type="button">
+        <button class="nextpage" name="button" type="button" v-on:click="back">
           <a href="javascript:;" class="next"> &larr; </a>
         </button>
-        <button class="nextpage" name="button" type="button">
+        <label>{{trang}}</label>
+        <button class="nextpage" name="button" type="button" v-on:click="next">
           <a href="javascript:;" class="next"> &rarr; </a>
         </button>
       </div>
@@ -227,11 +228,13 @@
 export default {
   name: 'bang',
   props: {
+    form: Array,
     formtam: Array,
     index_edit: String
   },
   data () {
     return {
+      trang: 0,
       form1: [],
       idform: '',
       Temlate: '',
@@ -240,14 +243,98 @@ export default {
       VersionDate: '',
       ExpirationDate: '',
       Active: ''
-
     }
   },
 
   computed: {
+  },
+  watch: {
 
+    // checkFilterData () {
+    //   this.formtam = []
+    //   for (let i = 0; i <= this.form.length - 1; i++) {
+    //     this.formtam.push(this.form[i])
+    //   }
+
+    //   if (this.E.checkall === 'loc') {
+    //     for (let i = this.formtam.length - 1; i >= 0; i--) {
+    //       if (this.formtam[i].Temlate.includes(this.E.Temlate)) {
+    //       } else {
+    //         // alert(this.formtam[i].Temlate + this.formtam[i].VersionDate)
+    //         this.formtam.splice(i, 1)
+    //       }
+    //     }
+    //     for (let i = this.formtam.length - 1; i >= 0; i--) {
+    //       if (this.formtam[i].Type.includes(this.E.Type)) {
+    //       } else {
+    //         this.formtam.splice(i, 1)
+    //       }
+    //     }
+    //     for (let i = this.formtam.length - 1; i >= 0; i--) {
+    //       if (this.formtam[i].Company.includes(this.E.Company)) {
+    //       } else {
+    //         this.formtam.splice(i, 1)
+    //       }
+    //     }
+    //     for (let i = this.formtam.length - 1; i >= 0; i--) {
+    //       if (this.formtam[i].Active.includes(this.E.Active)) {
+    //       } else {
+    //         this.formtam.splice(i, 1)
+    //       }
+    //     }
+    //     if (this.E.VersionDate !== '' && this.E.VersionDate[4] === '-') { this.E.VersionDate = this.convertDate(this.E.VersionDate, '-', 'yyyy_mm_dd') }
+    //     for (let i = this.formtam.length - 1; i >= 0; i--) {
+    //       if (this.formtam[i].VersionDate.includes(this.E.VersionDate)) {
+    //       } else {
+    //         this.formtam.splice(i, 1)
+    //       }
+    //     }
+    //   } else {
+    //   }
+    //   this.checkFilterData = ''
+    // },
+    // changeSearch () {
+    //   this.formtam = []
+    //   for (let i = 0; i <= this.form.length - 1; i++) {
+    //     this.formtam.push(this.form[i])
+    //   }
+    //   for (let i = this.formtam.length - 1; i >= 0; i--) {
+    //     if (this.formtam[i].Temlate.includes(this.changeSearch)) {
+    //     } else {
+    //       this.formtam.splice(i, 1)
+    //     }
+    //   }
+    // }
   },
   methods: {
+    back (e) {
+      alert(this.form)
+      let lengthrow = this.form.length
+      let indexPage = parseInt(lengthrow / 5)
+      if (this.trang < 0) {
+        this.trang = indexPage
+      } else {
+        this.trang = this.trang - 1
+      }
+      let data = {index: this.trang}
+      this.$emit('backPage', data)
+    },
+    next (e) {
+      alert(this.form)
+      let lengthrow = this.form.length
+      let indexPage = parseInt(lengthrow / 5)
+      alert(indexPage)
+      if (this.trang > indexPage) {
+        this.trang = 0
+        alert('vao if')
+      } else {
+        this.trang = this.trang + 1
+        alert('vao else')
+      }
+      let data = {index: this.trang}
+      // alert(data.index)
+      this.$emit('nextPage', data)
+    },
     giang: function () {
       this.users.push(this.formtam)
     },
@@ -345,7 +432,6 @@ export default {
         let getidaddfilterC = e.target.parentNode.parentNode.childNodes
         let id = getidaddfilterC[0].innerHTML
         let getTemlate = this.formtam[this.index_edit].Temlate
-
         let getType = this.formtam[this.index_edit].Type
         let getCompany = this.formtam[this.index_edit].Company
         let getVersionDate = this.formtam[this.index_edit].VersionDate
@@ -563,6 +649,7 @@ a {
   padding: 0px;
 }
 #nextpage {
+  display: flex;
   position: absolute;
   width: 100%;
   text-align: center;

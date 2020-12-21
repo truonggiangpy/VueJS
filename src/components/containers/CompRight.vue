@@ -6,15 +6,17 @@
       v-on:changeeven="changeevenn"
       v-on:FilterData="FilterData"
       v-on:SearchData="SearchData"
-
     />
     <CompTable
        v-bind:index_edit="index_edit"
       v-bind:formtam="formtam"
+      v-bind:form="form"
       v-on:removeline="removeline"
       v-on:Cancel_AddFilter="Cancel_AddFilter"
       v-on:Confirm_AddFilter="Confirm_AddFilter"
       v-on:Editline="Editline"
+      v-on:backPage="backPage"
+      v-on:nextPage="nextPage"
       v-on:SortDL="SortDL"
       v-on:Edit="Edit"
       v-on:Confirm_Edit="Confirm_Edit"
@@ -29,6 +31,7 @@ import CompTable from './CompRight/CompTable.vue'
 export default {
   name: 'Contaiv',
   props: {
+    form: Array,
     formtam: Array,
     index_edit: String
   },
@@ -52,6 +55,12 @@ export default {
     },
     SortDL (e) {
       this.$emit('SortDL', e)
+    },
+    backPage (e) {
+      this.$emit('backPage', e)
+    },
+    nextPage (e) {
+      this.$emit('nextPage', e)
     },
     changeevenn (e) {
       this.$emit('changeeven', e)

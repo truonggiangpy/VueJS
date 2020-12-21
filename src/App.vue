@@ -5,11 +5,14 @@
     <containers
      v-bind:index_edit="index_edit"
       v-bind:formtam="formtam"
+      v-bind:form="form"
       v-on:changeeven="changeevenn"
       v-on:addfilter="addfilter"
       v-on:FilterData="FilterData"
       v-on:SearchData="SearchData"
       v-on:SortDL="SortDL"
+      v-on:backPage="backPage"
+      v-on:nextPage="nextPage"
       v-on:removeline="removeline"
       v-on:Cancel_AddFilter="Cancel_AddFilter"
       v-on:Confirm_AddFilter="Confirm_AddFilter"
@@ -52,6 +55,7 @@ export default {
       create_confirm_boolean: '',
       evenremove: {},
       Temlate: 's',
+      trang: 0,
       Type: '',
       Company: '',
       VersionDate: '',
@@ -61,7 +65,6 @@ export default {
       formtam: [],
       E: {},
       checkType_Sort: '',
-
       form: [
         // Temlate: this.Temlate,Type: this.Type, Company: this.Company,VersionDate: this.VersionDate, ExpirationDate: this.ExpirationDate, Active: this.Active
         {
@@ -118,6 +121,39 @@ export default {
           Active: 'Archive',
           node1: 'Remove',
           node2: 'Edit'
+        },
+        {
+          idfrom: '1117',
+          Temlate: 'phan trang n',
+          Type: 'Payoll',
+          Company: 'Peptico',
+          VersionDate: '22-12-2020',
+          ExpirationDate: '20-11-2020',
+          Active: 'Archive',
+          node1: 'Remove',
+          node2: 'Edit'
+        },
+        {
+          idfrom: '1118',
+          Temlate: 'phan trang n',
+          Type: 'Payoll',
+          Company: 'Peptico',
+          VersionDate: '22-12-2020',
+          ExpirationDate: '20-11-2020',
+          Active: 'Archive',
+          node1: 'Remove',
+          node2: 'Edit'
+        },
+        {
+          idfrom: '1119',
+          Temlate: 'phan trang n',
+          Type: 'Payoll',
+          Company: 'Peptico',
+          VersionDate: '22-12-2020',
+          ExpirationDate: '20-11-2020',
+          Active: 'Archive',
+          node1: 'Remove',
+          node2: 'Edit'
         }
       ]
     }
@@ -132,6 +168,23 @@ export default {
   },
 
   watch: {
+    trang () {
+      let lengthrow = this.form.length
+      let indexPage = parseInt(lengthrow / 5)
+      this.formtam = []
+      let end
+      alert(this.form.length - 1)
+      if (indexPage === this.trang) { end = this.form.length - 1 } else {
+        end = indexPage * 5 + 5
+      }
+      alert(end)
+      for (let i = indexPage * 5; i < end; i++) {
+        alert(this.formtam[i])
+        this.formtam.push(this.form[i])
+        // alert('phan tu form tam là: ' + this.formtam + ' phan tu của form' + this.form1)
+      }
+      // alert('day la form tam ' + this.formtam)
+    },
     checkFilterData () {
       this.formtam = []
       for (let i = 0; i <= this.form.length - 1; i++) {
@@ -142,7 +195,6 @@ export default {
         for (let i = this.formtam.length - 1; i >= 0; i--) {
           if (this.formtam[i].Temlate.includes(this.E.Temlate)) {
           } else {
-            // alert(this.formtam[i].Temlate + this.formtam[i].VersionDate)
             this.formtam.splice(i, 1)
           }
         }
@@ -527,6 +579,13 @@ export default {
       for (let i = 0; i <= this.form.length - 1; i++) {
         this.formtam.push(this.form[i])
       }
+    },
+    backPage (e) {
+      this.trang = e.index - 1
+    },
+    nextPage (e) {
+      this.trang = e.index
+      alert(this.trang)
     }
   }
 }

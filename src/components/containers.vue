@@ -4,11 +4,14 @@
     <CompRight
     v-bind:index_edit="index_edit"
       v-bind:formtam="formtam"
+      v-bind:form="form"
       v-on:changeeven="changeevenn"
       v-on:addfilter="addfilter"
       v-on:FilterData="FilterData"
       v-on:SearchData="SearchData"
       v-on:SortDL="SortDL"
+      v-on:backPage="backPage"
+      v-on:nextPage="nextPage"
       v-on:removeline="removeline"
       v-on:Cancel_AddFilter="Cancel_AddFilter"
       v-on:Confirm_AddFilter="Confirm_AddFilter"
@@ -29,6 +32,7 @@ export default {
 
   props: {
     formtam: Array,
+    form: Array,
     index_edit: String
   },
   data () {
@@ -77,6 +81,12 @@ export default {
     },
     Cancel_Edit_row (e) {
       this.$emit('Cancel_Edit_row', e)
+    },
+    backPage (e) {
+      this.$emit('backPage', e)
+    },
+    nextPage (e) {
+      this.$emit('nextPage', e)
     }
   }
 }
