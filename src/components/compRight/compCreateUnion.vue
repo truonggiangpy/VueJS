@@ -1,7 +1,7 @@
 <template>
-  <div id="id01" class="modal">
+  <div class="modal">
     <div class="modal-dialog">
-      <template v-if="create_confirm_boolean === 'Create'">
+      <template v-if="confirmBoolean === 'Create'">
         <div class="modal-content">
           <header class="container">
             <div class="container">
@@ -46,17 +46,21 @@
                 </select>
               </div>
             </div>
+
+            <label style=" color: red">{{mess}}</label>
           </header>
           <footer class="container1">
-            <a href="#" v-on:click="Click_Create" class="closebtn" id="cancel"
+            <a href="#" v-on:click="createTem" class="closebtn" id="cancel"
               >Create</a
             >
             &nbsp; &nbsp;
-            <a href="#" v-on:click="Click_Cancel" class="closebtn" id="cancel"
+            <a href="#" v-on:click="cancelCreteTem" class="closebtn" id="cancel"
               >cancel</a
             >
             &nbsp; &nbsp;
+
           </footer>
+
         </div>
       </template>
       <template v-else>
@@ -67,38 +71,80 @@
           >
             <div class="container">
               <h1>Xác Nhận Xóa</h1>
-              <div><label>FormID: </label>{{ evenremove.id }}</div>
-              <div><label>Temlate: </label>{{ evenremove.Temlate }}</div>
-              <div><label>Type: </label>{{ evenremove.Type }}</div>
-              <div><label>Company: </label>{{ evenremove.Company }}</div>
+              <div><label>FormID: </label>{{ evenRemove.id }}</div>
+              <div><label>Temlate: </label>{{ evenRemove.Temlate }}</div>
+              <div><label>Type: </label>{{ evenRemove.Type }}</div>
+              <div><label>Company: </label>{{ evenRemove.Company }}</div>
               <div>
-                <label>VersionDate: </label>{{ evenremove.VersionDate }}
+                <label>VersionDate: </label>{{ evenRemove.VersionDate }}
               </div>
               <div>
-                <label>ExpirationDate: </label>{{ evenremove.ExpirationDate }}
+                <label>ExpirationDate: </label>{{ evenRemove.ExpirationDate }}
               </div>
-              <div><label>Active: </label>{{ evenremove.Active }}</div>
+              <div><label>Active: </label>{{ evenRemove.Active }}</div>
             </div>
           </header>
           <footer class="container1">
-            <template v-if="create_confirm_boolean === 'Create'">
+            <template v-if="confirmBoolean === 'Create'">
               <a href="#" v-on:click="Click_Form" class="closebtn" id="cancel"
                 >Create</a
               >
               &nbsp; &nbsp;
             </template>
             <template v-else>
-              <a href="#" class="closebtn" id="cancel" v-on:click="removee"
+              <a href="#" class="closebtn" id="cancel" v-on:click="confirmRemove"
                 >Confirm</a
               >
               &nbsp; &nbsp;
             </template>
-            <a href="#" class="closebtn" id="cancel">cancel</a> &nbsp; &nbsp;
+            <a href="#" class="closebtn" id="cancel" v-on:click="cancelRemove">cancel</a> &nbsp; &nbsp;
+          </footer>
+        </div>
+      </template>
+    </div>
+    <div class="modal2" v-show="confirmCan">
+    <div class="modal-dialog">
+      <template>
+        <div class="modal-content">
+          <header
+            class="container"
+            style="text-align:center; font-size:20px; color: white"
+          >
+            <div class="container">
+              <h1>Xác Nhận Cancel</h1>
+              <div><label>Temlate: </label>{{ confirmCamcell.Temlate }}</div>
+              <div><label>Type: </label>{{ confirmCamcell.Type }}</div>
+              <div><label>Company: </label>{{ confirmCamcell.Company }}</div>
+              <div>
+                <label>VersionDate: </label>{{ confirmCamcell.VersionDate }}
+              </div>
+              <div>
+                <label>ExpirationDate: </label>{{ confirmCamcell.ExpirationDate }}
+              </div>
+              <div><label>Active: </label>{{ confirmCamcell.Active }}</div>
+            </div>
+          </header>
+          <footer class="container1">
+            <template v-if="confirmBoolean === 'Create'">
+              <a href="#" class="closebtn" id="cancel" v-on:click="confirmCancel"
+                >Confirm</a
+              >
+              &nbsp; &nbsp;
+            </template>
+            <template v-else>
+              <a href="#" class="closebtn" id="cancel"
+                >Confirm</a
+              >
+              &nbsp; &nbsp;
+            </template>
+            <a href="#" class="closebtn" id="cancel" v-on:click="cancelCancel">cancel</a> &nbsp; &nbsp;
           </footer>
         </div>
       </template>
     </div>
   </div>
+  </div>
+
 </template>
 
 <script>
@@ -106,11 +152,14 @@
 export default {
   name: 'ds',
   props: {
-    create_confirm_boolean: String,
-    evenremove: Object
+    confirmBoolean: String,
+    evenRemove: Object
   },
   data () {
     return {
+      confirmCan: false,
+      confirmCamcell: {Temlate: '', Type: '', Company: '', VersionDate: '', ExpirationDate: '', Active: ''},
+      mess: '',
       Temlate: '',
       Type: '',
       Company: '',
@@ -121,38 +170,77 @@ export default {
       msg: ''
     }
   },
-  computed: {},
-
+  computed: {
+  },
   methods: {
-    Click_Create (e) {
-      var form = {
-        idfrom: '',
-        Temlate: this.Temlate,
-        Type: this.Type,
-        Company: this.Company,
-        VersionDate: this.VersionDate,
-        ExpirationDate: this.ExpirationDate,
-        Active: this.Active,
-        node1: 'Remove',
-        node2: 'Edit',
-        return_create_confirm_boolean: ''
-      }
+    createTem (e) {
+      if (this.Temlate === '') {
+        this.mess = 'Trường Template chưa được nhập'
+      } else {
+        this.mess = ''
+        var form = {
+          idfrom: '',
+          Temlate: this.Temlate,
+          Type: this.Type,
+          Company: this.Company,
+          VersionDate: this.VersionDate,
+          ExpirationDate: this.ExpirationDate,
+          Active: this.Active,
+          node1: 'Remove',
+          node2: 'Edit',
+          return_confirmBoolean: ''
+        }
 
-      this.$emit('Click_Create_table', form)
-      this.Temlate = ''
-      this.Type = ''
-      this.Company = ''
-      this.VersionDate = ''
-      this.ExpirationDate = ''
-      this.Active = ''
+        this.$emit('createTem', form)
+        this.Temlate = ''
+        this.Type = ''
+        this.Company = ''
+        this.VersionDate = ''
+        this.ExpirationDate = ''
+        this.Active = ''
+      }
     },
-    Click_Cancel (e) {
-      let cancel = { return_create_confirm_boolean: '' }
-      this.$emit('Click_Cancel_table', cancel)
+    cancelCreteTem (e) {
+      this.confirmCan = true
+      this.confirmCamcell.Temlate = this.Temlate
+      this.confirmCamcell.Type = this.Type
+      this.confirmCamcell.Company = this.Company
+      this.confirmCamcell.VersionDate = this.convertDate(this.VersionDate.trim(), '-', 'yyyy_mm_dd')
+      this.confirmCamcell.ExpirationDate = this.convertDate(this.ExpirationDate.trim(), '-', 'yyyy_mm_dd')
+      this.confirmCamcell.Active = this.Active
     },
-    removee (e) {
-      let data1 = { id: this.evenremove.id }
-      this.$emit('removelineModle', data1)
+    confirmCancel (e) {
+      this.mess = ''
+      this.confirmCan = false
+      this.$emit('confirmCancel', true)
+    },
+    cancelCancel (e) {
+      this.confirmCan = false
+    },
+    confirmRemove (e) {
+      let data1 = { id: this.evenRemove.id }
+      this.$emit('confirmRemove', data1)
+    },
+    cancelRemove (e) {
+      let t = false
+      this.$emit('cancelRemove', t)
+    },
+    convertDate: function (date, tt, type) {
+      let ngay
+      let thang
+      let nam
+      if (type === 'dd_mm_yyyy') {
+        ngay = date.slice(0, 2)
+        thang = date.slice(3, 5)
+        nam = date.slice(6, 10)
+        return nam + tt + thang + tt + ngay
+      }
+      if (type === 'yyyy_mm_dd') {
+        nam = date.slice(0, 4)
+        thang = date.slice(5, 7)
+        ngay = date.slice(8, 10)
+        return ngay + tt + thang + tt + nam
+      }
     }
   }
 }
@@ -213,10 +301,10 @@ export default {
 
 /* The modal's background */
 .modal {
-  display: none;
+  z-index: 15;
   position: fixed;
   left: 0;
-  top: 0;
+  top: 0%;
   width: 100%;
   height: 100%;
   overflow: auto;
@@ -232,7 +320,6 @@ export default {
 
 /* The modal box */
 .modal-dialog {
-  display: table-cell;
   vertical-align: middle;
 }
 

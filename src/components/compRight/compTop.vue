@@ -38,38 +38,6 @@
       <div>MSA(3)</div>
     </div>
     <hr />
-    <div class="container2">
-      <div id='control'>
-        <div style="color:blue">
-          <a
-            v-on:click="Handlechange"
-            href="#id01"
-            id="Union"
-            style="color: blue;"
-            >+ Union Templates &nbsp; &nbsp;</a
-          >
-        </div>
-        <div style="color:blue">
-          <a v-on:click="addtableline" href="#" id="Filter" style="color: blue;"
-            >Add Data &nbsp; &nbsp;</a
-          >
-        </div>
-          <div style="color:blue">
-          <a v-on:click="FilterData" href="#" id="FilterData" style="color: blue;"
-            >Filter data &nbsp; &nbsp;</a
-          >
-        </div>
-      </div>
-      <!-- <div style="color:blue">
-        <a v-on:click="SortData" href="#" id="FilterData" style="color: blue;"
-          >Sort &nbsp; &nbsp;</a
-        >
-      </div> -->
-      <!-- <div>Add Filter  &nbsp; </div> -->
-        <div class="search-wrapper">
-    <input id="hahaserch" type="text" v-model="search" placeholder="Search TemPlate Name"/>
-  </div>
-    </div>
   </div>
 </template>
 
@@ -125,6 +93,7 @@ export default {
     }
   }
 }
+
 </script>
 <style scoped>
 .container2 {

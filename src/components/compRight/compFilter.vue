@@ -13,7 +13,7 @@
             <button
               type="button"
               class="btn-close"
-              @click="close"
+              @click="closeFilter"
               aria-label="Close modal"
             >
               X
@@ -25,14 +25,6 @@
             <div style="text-align: center"><input type="checkbox" id="all" value="all" v-model="checkedNames"><label for="all">Tất Cả Dự Liệu</label></div><br/>
             <div style="display: flex;  justify-content: space-between; ">
               <div style="flex:1;">
-                <div>
-                  <label >Template: </label>
-                  <input
-                    placeholder="Nhập Temlate"
-                    v-model="Temlate"
-                    name="Temlate_Name"
-                  />
-                </div>
                 <div>
                   <label >Type: </label>
                   <select
@@ -54,24 +46,34 @@
             <div style="flex: 1">
               <label >Active: </label>
               <select
-              v-model="Active">
+                v-model="Active">
                 <option value="Active">Active</option>
                 <option value="Archive">Archive</option>
               </select>
               <div>
                 <label>Version Date</label>
-              <input class="create" type="date" v-model="VersionDate" />
+                <br>
+              <input class="create" type="date" v-model="VersionDate1" />
+              <label>to</label>
+              <input class="create" type="date" v-model="VersionDate2" />
               </div>
             </div>
             </div>
-
           </slot>
         </section>
         <footer class="modal-footer">
           <button
             type="button"
             class="btn-green"
-            @click="Filter"
+            @click="allData"
+            aria-label="Close modal"
+          >
+            All
+          </button>
+          <button
+            type="button"
+            class="btn-green"
+            @click="filter"
             aria-label="Close modal"
           >
             Filter
@@ -79,7 +81,7 @@
           <button
             type="button"
             class="btn-green"
-            @click="close"
+            @click="closeFilter"
             aria-label="Close modal"
           >
             Cancel
@@ -98,7 +100,8 @@ export default {
       Temlate: '',
       Type: '',
       Company: '',
-      VersionDate: '',
+      VersionDate1: '',
+      VersionDate2: '',
       Active: ''
     }
   },
@@ -106,37 +109,47 @@ export default {
     close () {
       this.$emit('close')
     },
-    Filter (e) {
+    filter (e) {
       let data = {}
       if (this.checkedNames[0] === 'all') {
-        data.Temlate = ''
         data.Type = ''
         data.Company = ''
-        data.VersionDate = ''
+        data.VersionDate1 = ''
+        data.VersionDate2 = ''
         data.Active = ''
         data.checkall = 'all'
       } else {
         data.checkedNames = this.checkedNames
-        data.Temlate = this.Temlate
         data.Type = this.Type
         data.Company = this.Company
-        data.VersionDate = this.VersionDate
+        data.VersionDate1 = this.VersionDate1
+        data.VersionDate2 = this.VersionDate2
         data.Active = this.Active
         data.checkall = 'loc'
       }
       // alert(data.VersionDate)
-      this.$emit('Confirm_Filter', data)
+      this.$emit('confirmFilter', data)
       this.Temlate = ''
       this.Type = ''
       this.Company = ''
       this.VersionDate = ''
       this.Active = ''
+    },
+    closeFilter (e) {
+      this.$emit('closeFilter')
+    },
+    allData (e) {
+      this.$emit('allData')
+    },
+    versionDate1 (e) {
+
     }
   }
 }
 </script>
 <style>
 .modal-backdrop {
+  z-index: 10;
   position: fixed;
   top: 0;
   bottom: 0;
