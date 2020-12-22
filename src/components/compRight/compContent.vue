@@ -778,33 +778,34 @@ export default {
         }
 
         //  if (e.VersionDate !== '' && e.VersionDate[4] === '-') { e.VersionDate = this.convertDate(e.VersionDate, '-', 'yyyy_mm_dd') }
-        alert('hahah')
-        for (let i = this.arrayTemtam.length - 1; i >= 0; i--) {
-          let numberVer
-          let ngayv = Number(this.arrayTemtam[i].VersionDate.slice(0, 2))
-          let thangv = Number(this.arrayTemtam[i].VersionDate.slice(3, 5))
-          let namv = Number(this.arrayTemtam[i].VersionDate.slice(6, 10))
-          numberVer = namv * 360 + thangv * 30 + ngayv
-          let ngay
-          let thang
-          let nam
-          let dayNumber1
-          let datNumber2
-          if (e.VersionDate1.slice(4, 5) === '-') {
-            ngay = Number(e.VersionDate1.slice(0, 4))
-            thang = Number(e.VersionDate1.slice(5, 7))
-            nam = Number(e.VersionDate1.slice(8, 10))
-            dayNumber1 = ngay * 360 + thang * 30 + nam
-          }
-          if (e.VersionDate2.slice(4, 5) === '-') {
-            ngay = Number(e.VersionDate2.slice(0, 4))
-            thang = Number(e.VersionDate2.slice(5, 7))
-            nam = Number(e.VersionDate2.slice(8, 10))
-            datNumber2 = ngay * 360 + thang * 30 + nam
-          }
-          if (dayNumber1 < numberVer && numberVer < datNumber2) {
-          } else {
-            this.arrayTemtam.splice(i, 1)
+        if (e.VersionDate1 === '-') {
+          for (let i = this.arrayTemtam.length - 1; i >= 0; i--) {
+            let numberVer
+            let ngayv = Number(this.arrayTemtam[i].VersionDate.slice(0, 2))
+            let thangv = Number(this.arrayTemtam[i].VersionDate.slice(3, 5))
+            let namv = Number(this.arrayTemtam[i].VersionDate.slice(6, 10))
+            numberVer = namv * 360 + thangv * 30 + ngayv
+            let ngay
+            let thang
+            let nam
+            let dayNumber1
+            let datNumber2
+            if (e.VersionDate1.slice(4, 5) === '-') {
+              ngay = Number(e.VersionDate1.slice(0, 4))
+              thang = Number(e.VersionDate1.slice(5, 7))
+              nam = Number(e.VersionDate1.slice(8, 10))
+              dayNumber1 = ngay * 360 + thang * 30 + nam
+            }
+            if (e.VersionDate2.slice(4, 5) === '-') {
+              ngay = Number(e.VersionDate2.slice(0, 4))
+              thang = Number(e.VersionDate2.slice(5, 7))
+              nam = Number(e.VersionDate2.slice(8, 10))
+              datNumber2 = ngay * 360 + thang * 30 + nam
+            }
+            if (dayNumber1 < numberVer && numberVer < datNumber2) {
+            } else {
+              this.arrayTemtam.splice(i, 1)
+            }
           }
         }
       } else {
