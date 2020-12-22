@@ -26,13 +26,13 @@
       </div>
     </div>
     <div class="flex-container">
-      <div @click="sortData" class="style col1" style="border-top-left-radius: 10px">arrayTem ID#</div>
-      <div class="style col2" @click="sortData">TemPlate Name</div>
-      <div class="style col3" @click="sortData">Type</div>
-      <div class="style col4" @click="sortData">Company</div>
-      <div class="style col5" @click="sortData">Version Date</div>
-      <div class="style col6" @click="sortData">Expiration D</div>
-      <div class="style col7" @click="sortData">ACTIVE</div>
+      <div @click="sortData" class="style col1" style="border-top-left-radius: 10px">form ID# {{sortfor}}</div>
+      <div class="style col2" @click="sortData">TemPlate Name {{sortTem}}</div>
+      <div class="style col3" @click="sortData">Type {{sortTyp}}</div>
+      <div class="style col4" @click="sortData">Company {{sortCom}}</div>
+      <div class="style col5" @click="sortData">Version Date {{sortVer}}</div>
+      <div class="style col6" @click="sortData">Expiration D {{sortExp}}</div>
+      <div class="style col7" @click="sortData">ACTIVE {{sortACT}}</div>
       <div class="style col8" style="border-top-right-radius: 10px"></div>
     </div>
     <div id="tablefull">
@@ -41,14 +41,14 @@
           class="flex-container"
           v-for="(user,idx) in arrayTemtam"
           :key="idx"
-          v-on:dblclick="editLine"
+          @dblclick="editLine"
         >
           <div class="col1">{{ user.idfrom }}</div>
           <div class="col2" v-if="user.node2 == 'Edit'">{{ user.Temlate }}</div>
           <div class="col2" v-else-if="user.node2 == 'Cancel'">
             <input
-              v-on:keyup.enter="confirmAddLine"
-              v-on:keyup.esc="cancelAddLine"
+              @keyup.enter="confirmAddLine"
+              @keyup.esc="cancelAddLine"
               style="width: 90%; flex-grow: 1"
               type="text"
               class="create"
@@ -59,8 +59,8 @@
           </div>
           <div class="col2" v-else-if="user.node2 == 'Cancel_row'">
             <input
-              v-on:keyup.esc="cancelEdit"
-              v-on:keyup.enter="confirmEnter"
+              @keyup.esc="cancelEdit"
+              @keyup.enter="confirmEnter"
               style="width: 90%; flex-grow: 1"
               type="text"
               class="create"
@@ -72,8 +72,8 @@
           <div class="col3" v-if="user.node2 == 'Edit'">{{ user.Type }}</div>
           <div class="col3" v-else-if="user.node2 == 'Cancel'">
             <select
-              v-on:keyup.enter="confirmAddLine"
-              v-on:keyup.esc="cancelAddLine"
+              @keyup.enter="confirmAddLine"
+              @keyup.esc="cancelAddLine"
               style="width: 90%"
               class="create"
               v-model="Type"
@@ -86,8 +86,8 @@
           </div>
           <div class="col3" v-else-if="user.node2 == 'Cancel_row'">
             <select
-              v-on:keyup.enter="confirmEnter"
-              v-on:keyup.esc="cancelEdit"
+              @keyup.enter="confirmEnter"
+              @keyup.esc="cancelEdit"
               style="width: 90%"
               class="create"
               v-model="arrayTemtam[index_edit].Type"
@@ -101,8 +101,8 @@
           <div class="col4" v-if="user.node2 == 'Edit'">{{ user.Company }}</div>
           <div class="col3" v-else-if="user.node2 == 'Cancel'">
             <input
-              v-on:keyup.enter="confirmAddLine"
-              v-on:keyup.esc="cancelAddLine"
+              @keyup.enter="confirmAddLine"
+              @keyup.esc="cancelAddLine"
               style="width: 90%"
               v-model="Company"
               type="text"
@@ -114,8 +114,8 @@
           </div>
           <div class="col3" v-else-if="user.node2 == 'Cancel_row'">
             <input
-              v-on:keyup.enter="confirmEnter"
-              v-on:keyup.esc="cancelEdit"
+              @keyup.enter="confirmEnter"
+              @keyup.esc="cancelEdit"
               style="width: 90%"
               v-model="arrayTemtam[index_edit].Company"
               type="text"
@@ -130,8 +130,8 @@
           </div>
           <div class="col3" v-else-if="user.node2 == 'Cancel'">
             <input
-              v-on:keyup.enter="confirmAddLine"
-              v-on:keyup.esc="cancelAddLine"
+              @keyup.enter="confirmAddLine"
+              @keyup.esc="cancelAddLine"
               style="width: 90%"
               v-model="VersionDate"
               type="date"
@@ -142,8 +142,8 @@
           </div>
           <div class="col3" v-else-if="user.node2 == 'Cancel_row'">
             <input
-              v-on:keyup.enter="confirmEnter"
-              v-on:keyup.esc="cancelEdit"
+              @keyup.enter="confirmEnter"
+              @keyup.esc="cancelEdit"
               style="width: 90%"
               v-model="arrayTemtam[index_edit].VersionDate"
               type="date"
@@ -157,8 +157,8 @@
           </div>
           <div class="col3" v-else-if="user.node2 == 'Cancel'">
             <input
-              v-on:keyup.enter="confirmAddLine"
-              v-on:keyup.esc="cancelAddLine"
+              @keyup.enter="confirmAddLine"
+              @keyup.esc="cancelAddLine"
               style="width: 90%"
               v-model="ExpirationDate"
               type="date"
@@ -169,8 +169,8 @@
           </div>
           <div class="col3" v-else-if="user.node2 == 'Cancel_row'">
             <input
-              v-on:keyup.enter="confirmEnter"
-              v-on:keyup.esc="cancelEdit"
+              @keyup.enter="confirmEnter"
+              @keyup.esc="cancelEdit"
               style="width: 90%"
               v-model="arrayTemtam[index_edit].ExpirationDate"
               type="date"
@@ -182,8 +182,8 @@
           <div class="col7" v-if="user.node2 == 'Edit'">{{ user.Active }}</div>
           <div class="col3" v-else-if="user.node2 == 'Cancel'">
             <select
-              v-on:keyup.enter="confirmAddLine"
-              v-on:keyup.esc="cancelAddLine"
+              @keyup.enter="confirmAddLine"
+              @keyup.esc="cancelAddLine"
               v-model="Active"
               style="width: 90%"
               class="create"
@@ -196,8 +196,8 @@
           </div>
           <div class="col3" v-else-if="user.node2 == 'Cancel_row'">
             <select
-              v-on:keyup.enter="confirmEnter"
-              v-on:keyup.esc="cancelEdit"
+              @keyup.enter="confirmEnter"
+              @keyup.esc="cancelEdit"
               v-model="arrayTemtam[index_edit].Active"
               style="width: 90%"
               class="create"
@@ -260,12 +260,12 @@
 
     </div>
     <compCreateUnion
-     :evenRemove="evenRemove"
      @confirmRemove="confirmRemove"
      @cancelRemove="cancelRemove"
      @createTem="createTem"
      @confirmCancel="confirmCancel"
      :confirmBoolean="confirmBoolean"
+     :evenRemove="evenRemove"
      v-show="showModel"
     />
     <compFilter
@@ -294,6 +294,7 @@ export default {
       evenRemove: {},
       showFilter: false,
       showModel: false,
+      typeSort: 'up',
       confirmBoolean: '',
       index_edit: '',
       idarrayTem: '',
@@ -302,6 +303,13 @@ export default {
       Company: '',
       VersionDate: '',
       ExpirationDate: '',
+      sortfor: '',
+      sortTem: '',
+      sortTyp: '',
+      sortCom: '',
+      sortVer: '',
+      sortExp: '',
+      sortACT: '',
       Active: '',
       search: '',
       arrayTemtam: [],
@@ -747,6 +755,222 @@ export default {
       }
     },
     sortData (e) {
+      let tt = e.target.innerHTML.slice(0, 4)
+      this.arrayTemtam = []
+      for (let i = 0; i <= this.arrayTem.length - 1; i++) {
+        this.arrayTemtam.push(this.arrayTem[i])
+      }
+      switch (tt) {
+        case 'form':
+          this.sortTem = ''
+          this.sortTyp = ''
+          this.sortCom = ''
+          this.sortVer = ''
+          this.sortExp = ''
+          this.sortACT = ''
+          if (this.typeSort === 'up') {
+            for (let i = 0; i < this.arrayTemtam.length - 1; i++) { // buble sort
+              for (let j = this.arrayTemtam.length - 1; j > 0; j--) {
+                if (this.arrayTemtam[j].idfrom < this.arrayTemtam[ j - 1 ].idfrom) {
+                  let tam = {}
+                  tam = this.arrayTemtam[j]
+                  this.arrayTemtam[j] = this.arrayTemtam[ j - 1 ]
+                  this.arrayTemtam[ j - 1 ] = tam
+                }
+              }
+            }
+            this.sortfor = '↓'
+            this.typeSort = 'down'
+          } else {
+            for (let i = 0; i < this.arrayTemtam.length - 1; i++) { // buble sort
+              for (let j = this.arrayTemtam.length - 1; j > 0; j--) {
+                if (this.arrayTemtam[j].idfrom > this.arrayTemtam[ j - 1 ].idfrom) {
+                  let tam = {}
+                  tam = this.arrayTemtam[j]
+                  this.arrayTemtam[j] = this.arrayTemtam[ j - 1 ]
+                  this.arrayTemtam[ j - 1 ] = tam
+                }
+              }
+            }
+            this.sortfor = '↑'
+            this.typeSort = 'up'
+          }
+
+          break
+        case 'Type':
+          this.sortfor = ''
+          this.sortTem = ''
+          this.sortCom = ''
+          this.sortVer = ''
+          this.sortExp = ''
+          this.sortACT = ''
+          if (this.typeSort === 'up') {
+            this.arrayTemtam.sort((a, b) => {
+              let titleA = a.Type.toLowerCase()
+              let titleB = b.Type.toLowerCase()
+              if (titleA < titleB) return -1
+              if (titleA > titleB) return 1
+              return 0
+            })
+            this.sortTyp = '↓'
+            this.typeSort = 'down'
+          } else {
+            this.arrayTemtam.sort((a, b) => {
+              let titleA = a.Type.toLowerCase()
+              let titleB = b.Type.toLowerCase()
+              if (titleA < titleB) return 1
+              if (titleA > titleB) return -1
+              return 0
+            })
+            this.sortTyp = '↑'
+            this.typeSort = 'up'
+          }
+          break
+        case 'TemP':
+          this.sortfor = ''
+          this.sortTyp = ''
+          this.sortCom = ''
+          this.sortVer = ''
+          this.sortExp = ''
+          this.sortACT = ''
+          if (this.typeSort === 'up') {
+            this.arrayTemtam.sort((a, b) => {
+              let titleA = a.Temlate.toLowerCase()
+              let titleB = b.Temlate.toLowerCase()
+              if (titleA < titleB) return -1
+              if (titleA > titleB) return 1
+              return 0
+            })
+            this.sortTem = '↓'
+            this.typeSort = 'down'
+          } else {
+            this.arrayTemtam.sort((a, b) => {
+              let titleA = a.Temlate.toLowerCase()
+              let titleB = b.Temlate.toLowerCase()
+              if (titleA < titleB) return 1
+              if (titleA > titleB) return -1
+              return 0
+            })
+            this.sortTem = '↑'
+            this.typeSort = 'up'
+          }
+          break
+        case 'Comp':
+          this.sortfor = ''
+          this.sortTem = ''
+          this.sortTyp = ''
+          this.sortVer = ''
+          this.sortExp = ''
+          this.sortACT = ''
+          if (this.typeSort === 'up') {
+            this.arrayTemtam.sort((a, b) => {
+              let titleA = a.Company.toLowerCase()
+              let titleB = b.Company.toLowerCase()
+              if (titleA < titleB) return -1
+              if (titleA > titleB) return 1
+              return 0
+            })
+            this.sortCom = '↓'
+            this.typeSort = 'down'
+          } else {
+            this.arrayTemtam.sort((a, b) => {
+              let titleA = a.Company.toLowerCase()
+              let titleB = b.Company.toLowerCase()
+              if (titleA < titleB) return 1
+              if (titleA > titleB) return -1
+              return 0
+            })
+            this.sortCom = '↑'
+            this.typeSort = 'up'
+          }
+          break
+        case 'ACTI':
+          this.sortfor = ''
+          this.sortTem = ''
+          this.sortTyp = ''
+          this.sortCom = ''
+          this.sortVer = ''
+          this.sortExp = ''
+          if (this.typeSort === 'up') {
+            this.arrayTemtam.sort((a, b) => {
+              let titleA = a.Active.toLowerCase()
+              let titleB = b.Active.toLowerCase()
+              if (titleA < titleB) return -1
+              if (titleA > titleB) return 1
+              return 0
+            })
+            this.sortACT = '↓'
+            this.typeSort = 'down'
+          } else {
+            this.arrayTemtam.sort((a, b) => {
+              let titleA = a.Active.toLowerCase()
+              let titleB = b.Active.toLowerCase()
+              if (titleA < titleB) return 1
+              if (titleA > titleB) return -1
+              return 0
+            })
+            this.sortACT = '↑'
+            this.typeSort = 'up'
+          }
+          break
+        case 'Expi':
+          this.sortfor = ''
+          this.sortTem = ''
+          this.sortTyp = ''
+          this.sortCom = ''
+          this.sortVer = ''
+          this.sortACT = ''
+          if (this.typeSort === 'up') {
+            this.arrayTemtam.sort((a, b) => {
+              a = a.ExpirationDate.toString().split('-')
+              b = b.ExpirationDate.toString().split('-')
+              return a[2] - b[2] || a[1] - b[1] || a[0] - b[0]
+            })
+            this.sortExp = '↓'
+            this.typeSort = 'down'
+          } else {
+            this.arrayTemtam.sort((a, b) => {
+              a = a.ExpirationDate.toString().split('-')
+              b = b.ExpirationDate.toString().split('-')
+              return b[2] - a[2] || b[1] - a[1] || b[0] - a[0]
+            })
+            this.sortExp = '↑'
+            this.typeSort = 'up'
+          }
+          break
+        case 'Vers':
+          this.sortfor = ''
+          this.sortTem = ''
+          this.sortTyp = ''
+          this.sortCom = ''
+          this.sortVer = ''
+          this.sortACT = ''
+          if (this.typeSort === 'up') {
+            this.arrayTemtam.sort((a, b) => {
+              a = a.VersionDate.toString().split('-')
+              b = b.VersionDate.toString().split('-')
+              return a[2] - b[2] || a[1] - b[1] || a[0] - b[0]
+            })
+            this.sortVer = '↓'
+            this.typeSort = 'down'
+          } else {
+            this.arrayTemtam.sort((a, b) => {
+              a = a.VersionDate.toString().split('-')
+              b = b.VersionDate.toString().split('-')
+              return b[2] - a[2] || b[1] - a[1] || b[0] - a[0]
+            })
+            this.sortVer = '↑'
+            this.typeSort = 'up'
+          }
+          break
+      }
+    },
+    removeline (e) {
+      this.evenremove = e
+      this.arrayTemtam = []
+      for (let i = 0; i <= this.arrayTem.length - 1; i++) {
+        this.arrayTemtam.push(this.arrayTem[i])
+      }
     },
     filterData (e) {
       this.showFilter = true
@@ -778,7 +1002,7 @@ export default {
         }
 
         //  if (e.VersionDate !== '' && e.VersionDate[4] === '-') { e.VersionDate = this.convertDate(e.VersionDate, '-', 'yyyy_mm_dd') }
-        if (e.VersionDate1 === '-') {
+        if (e.VersionDate1[4] === '-') {
           for (let i = this.arrayTemtam.length - 1; i >= 0; i--) {
             let numberVer
             let ngayv = Number(this.arrayTemtam[i].VersionDate.slice(0, 2))
@@ -802,7 +1026,7 @@ export default {
               nam = Number(e.VersionDate2.slice(8, 10))
               datNumber2 = ngay * 360 + thang * 30 + nam
             }
-            if (dayNumber1 < numberVer && numberVer < datNumber2) {
+            if (dayNumber1 <= numberVer && numberVer <= datNumber2) {
             } else {
               this.arrayTemtam.splice(i, 1)
             }
@@ -812,7 +1036,6 @@ export default {
       }
       this.checkFilterData = ''
     },
-
     closeFilter (e) {
       this.showFilter = false
     },
@@ -1023,7 +1246,6 @@ a {
   margin-right: 5px;
   padding-right: 5px;
 }
-
 .nextpage {
   padding: 0px;
 }
