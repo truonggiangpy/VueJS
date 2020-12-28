@@ -201,13 +201,20 @@ export default {
       }
     },
     cancelCreteTem (e) {
-      this.confirmCan = true
-      this.confirmCamcell.Temlate = this.Temlate
-      this.confirmCamcell.Type = this.Type
-      this.confirmCamcell.Company = this.Company
-      this.confirmCamcell.VersionDate = this.convertDate(this.VersionDate.trim(), '-', 'yyyy_mm_dd')
-      this.confirmCamcell.ExpirationDate = this.convertDate(this.ExpirationDate.trim(), '-', 'yyyy_mm_dd')
-      this.confirmCamcell.Active = this.Active
+      // alert(this.ExpirationDate + this.Type)
+      // if (this.Temlate === '' && this.Type === '' && this.Company === '' && this.VersionDate === '' && this.ExpirationDate === '' && this.Active === '') {
+      if (this.Temlate === '' && this.Type === '' && this.Company === '' && this.VersionDate === '' && this.ExpirationDate === '' && this.Active === '') {
+        this.$emit('confirmCancel', true)
+        this.mess = ''
+      } else {
+        this.confirmCan = true
+        this.confirmCamcell.Temlate = this.Temlate
+        this.confirmCamcell.Type = this.Type
+        this.confirmCamcell.Company = this.Company
+        this.confirmCamcell.VersionDate = this.convertDate(this.VersionDate.trim(), '-', 'yyyy_mm_dd')
+        this.confirmCamcell.ExpirationDate = this.convertDate(this.ExpirationDate.trim(), '-', 'yyyy_mm_dd')
+        this.confirmCamcell.Active = this.Active
+      }
     },
     confirmCancel (e) {
       this.mess = ''

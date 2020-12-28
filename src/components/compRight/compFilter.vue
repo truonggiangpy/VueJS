@@ -132,7 +132,8 @@ export default {
       this.Temlate = ''
       this.Type = ''
       this.Company = ''
-      this.VersionDate = ''
+      this.VersionDate1 = ''
+      this.VersionDate2 = ''
       this.Active = ''
     },
     closeFilter (e) {

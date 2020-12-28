@@ -26,7 +26,7 @@
       </div>
     </div>
     <div class="flex-container">
-      <div @click="sortData" class="style col1" style="border-top-left-radius: 10px">form ID# {{sortfor}}</div>
+      <div @click="sortData" class="style col1" style="border-top-left-radius: 10px">Form ID# {{sortfor}}</div>
       <div class="style col2" @click="sortData">TemPlate Name {{sortTem}}</div>
       <div class="style col3" @click="sortData">Type {{sortTyp}}</div>
       <div class="style col4" @click="sortData">Company {{sortCom}}</div>
@@ -250,14 +250,14 @@
         </div>
       </div>
       <div id="nextpage">
-        <button class="nextpage" name="button" type="button">
+        <button class="nextpage" name="button" type="button " v-on:click="back">
           <a href="javascript:;" class="next"> &larr; </a>
         </button>
-        <button class="nextpage" name="button" type="button">
+        <label>{{trang}}</label>
+        <button class="nextpage" name="button" type="button" v-on:click="next">
           <a href="javascript:;" class="next"> &rarr; </a>
         </button>
       </div>
-
     </div>
     <compCreateUnion
      @confirmRemove="confirmRemove"
@@ -292,6 +292,8 @@ export default {
   data () {
     return {
       evenRemove: {},
+      trangtam: '',
+      trang: 1,
       showFilter: false,
       showModel: false,
       typeSort: 'up',
@@ -312,12 +314,14 @@ export default {
       sortACT: '',
       Active: '',
       search: '',
+      searchtam: [],
+      checkSearchtam: false,
       arrayTemtam: [],
       arrayTem: [
         // Temlate: this.Temlate,Type: this.Type, Company: this.Company,VersionDate: this.VersionDate, ExpirationDate: expirationDate, Active: this.Active
         {
-          idfrom: '1115',
-          Temlate: 'bahaha hihhi ',
+          idfrom: '1101',
+          Temlate: 'vahaha hihhi ',
           Type: 'Production',
           Company: 'Peptico',
           VersionDate: '17-12-2020',
@@ -327,19 +331,96 @@ export default {
           node2: 'Edit'
         },
         {
-          idfrom: '1113',
+          idfrom: '1102',
+          Temlate: 'cahaha hihhi ',
+          Type: 'Production',
+          Company: 'Peptico',
+          VersionDate: '18-12-2020',
+          ExpirationDate: '17-12-2020',
+          Active: 'Active',
+          node1: 'Remove',
+          node2: 'Edit'
+        },
+        {
+          idfrom: '1103',
+          Temlate: 'aahaha hihhi ',
+          Type: 'Production',
+          Company: 'Peptico',
+          VersionDate: '13-12-2020',
+          ExpirationDate: '17-12-2020',
+          Active: 'Active',
+          node1: 'Remove',
+          node2: 'Edit'
+        },
+        {
+          idfrom: '1104',
+          Temlate: 'uuuhaha hihhi ',
+          Type: 'Production',
+          Company: 'Peptico',
+          VersionDate: '12-12-2020',
+          ExpirationDate: '17-12-2020',
+          Active: 'Active',
+          node1: 'Remove',
+          node2: 'Edit'
+        },
+        {
+          idfrom: '1105',
+          Temlate: 'kkkaha hihhi ',
+          Type: 'Production',
+          Company: 'Peptico',
+          VersionDate: '11-12-2020',
+          ExpirationDate: '17-12-2020',
+          Active: 'Active',
+          node1: 'Remove',
+          node2: 'Edit'
+        },
+        {
+          idfrom: '1106',
+          Temlate: 'mmmaha hihhi ',
+          Type: 'Production',
+          Company: 'Peptico',
+          VersionDate: '17-12-2020',
+          ExpirationDate: '17-12-2020',
+          Active: 'Active',
+          node1: 'Remove',
+          node2: 'Edit'
+        },
+        {
+          idfrom: '1107',
+          Temlate: 'nnnaha hihhi ',
+          Type: 'Production',
+          Company: 'Peptico',
+          VersionDate: '22-12-2020',
+          ExpirationDate: '17-12-2020',
+          Active: 'Active',
+          node1: 'Remove',
+          node2: 'Edit'
+        },
+        {
+          idfrom: '1108',
+          Temlate: 'ooaha hihhi ',
+          Type: 'Production',
+          Company: 'Peptico',
+          VersionDate: '21-12-2020',
+          ExpirationDate: '17-12-2020',
+          Active: 'Active',
+          node1: 'Remove',
+          node2: 'Edit'
+        },
+        {
+          idfrom: '1109',
           Temlate: 'a3325243-AFM-B6-TV-RADIOCOMMERCIALS-11-15',
           Type: 'Production',
           Company: 'Haitico',
-          VersionDate: '20-11-2020',
+          VersionDate: '24-11-2020',
           ExpirationDate: '20-11-2020',
           Active: 'Archive',
           node1: 'Remove',
           node2: 'Edit'
         },
         {
-          idfrom: '1111',
-          Temlate: 'huhuhahahahaahahahaah',
+          idfrom: '1110',
+          Temlate: 'xxuhahahahaahahahaah',
           Type: 'Payoll',
           Company: 'Haitico',
           VersionDate: '25-12-2020',
@@ -349,11 +430,11 @@ export default {
           node2: 'Edit'
         },
         {
-          idfrom: '1114',
+          idfrom: '1111',
           Temlate: 'c324-AFM-B6-TV-RADIOCOMMERCIALS-11-15',
           Type: 'Production',
           Company: 'Peptico',
-          VersionDate: '20-11-2020',
+          VersionDate: '26-11-2020',
           ExpirationDate: '20-11-2020',
           Active: 'Active',
           node1: 'Remove',
@@ -364,7 +445,7 @@ export default {
           Temlate: '1999-AFM-B6-TV-RADIOCOMMERCIALS-11-15',
           Type: 'Payoll',
           Company: 'Peptico',
-          VersionDate: '22-12-2020',
+          VersionDate: '27-12-2020',
           ExpirationDate: '20-11-2020',
           Active: 'Archive',
           node1: 'Remove',
@@ -374,29 +455,97 @@ export default {
     }
   },
   created () {
-    for (let [, v] of this.arrayTem.entries()) {
-      this.arrayTemtam.push(v)
+    for (let i = 0; i < 5; i++) {
+      this.arrayTemtam.push(this.arrayTem[i])
     }
+    history.pushState(null, null, 'Home')
   },
   computed: {
 
   },
   watch: {
-    search  () {
-      this.arrayTemtam = []
-      for (let [i] of this.arrayTem.entries()) {
-        this.arrayTemtam.push(this.arrayTem[i])
+    search () {
+      if (this.search.length !== 0) {
+        history.pushState(null, null, 'search=' + this.search)
+        this.checkSearchtam = true
+      } else {
+        history.pushState(null, null, 'Home')
+        this.checkSearchtam = false
       }
-      for (let i = this.arrayTemtam.length - 1; i >= 0; i--) {
-        if (this.arrayTemtam[i].Temlate.includes(this.search)) {
+      this.searchtam = []
+      for (let [i] of this.arrayTem.entries()) {
+        this.searchtam.push(this.arrayTem[i])
+      }
+      for (let i = this.searchtam.length - 1; i >= 0; i--) {
+        if (this.searchtam[i].Temlate.includes(this.search)) {
         } else {
-          this.arrayTemtam.splice(i, 1)
+          this.searchtam.splice(i, 1)
+        }
+      }
+      this.trangtam = 1
+      this.trang = -10
+    },
+    trang () {
+      if (this.trang < 0) {
+        this.trang = this.trangtam
+      }
+      // let lengthrow = this.arrayTem.length
+      // let indexPage = parseInt(lengthrow / 5)
+      this.arrayTemtam = []
+      // let end
+      let trangtam = 5 * (this.trang)
+      // if (indexPage === this.trang) { end = this.arrayTem.length - 1 } else {
+      //   end = indexPage * 5 + 5
+      // }
+      let endArray
+      if (this.checkSearchtam === true) {
+        if (trangtam > this.searchtam.length) endArray = this.searchtam.length
+        else endArray = trangtam
+        // if (trangtam === this.arrayTem.length / 5) {
+        for (let i = trangtam - 5; i < endArray; i++) {
+          this.arrayTemtam.push(this.searchtam[i])
+        }
+      } else {
+        if (trangtam > this.arrayTem.length) endArray = this.arrayTem.length
+        else endArray = trangtam
+        // if (trangtam === this.arrayTem.length / 5) {
+        for (let i = trangtam - 5; i < endArray; i++) {
+          this.arrayTemtam.push(this.arrayTem[i])
         }
       }
     }
   },
   methods: {
+    back (e) {
+      // let indexPage
+      // let lengthrow = this.arrayTem.length
+      // if (lengthrow % 5 !== 0) {
+      //   indexPage = parseInt(lengthrow / 5)
+      // } else {
+      //   indexPage = parseInt(lengthrow / 5) - 1
+      // }
+      this.trang = this.trang - 1
+      if (this.trang < 1) {
+        this.trang = 1
+      }
+      history.pushState(null, null, 'page' + this.trang)
+    },
+    next (e) {
+      let indexPage
+      let lengthrow = this.arrayTem.length
+      if (lengthrow % 5 !== 0) {
+        indexPage = parseInt(lengthrow / 5)
+      } else {
+        indexPage = parseInt(lengthrow / 5) - 1
+      }
+      this.trang = this.trang + 1
+      if (this.trang > indexPage) {
+        this.trang = indexPage + 1
+      }
+      history.pushState(null, null, 'page' + this.trang)
+    },
     edit (event) {
+      history.pushState(null, null, 'edit')
       let elementtable = event.target.parentNode.parentNode.parentNode.parentNode.childNodes
       let getid = elementtable[0].innerHTML
       let getTemlate = elementtable[2].innerHTML
@@ -405,6 +554,7 @@ export default {
       let getVersionDate = elementtable[8].innerHTML
       let getExpirationDate = elementtable[10].innerHTML
       let getActive = elementtable[12].innerHTML
+
       let data1 = {
         idfrom: getid,
         Temlate: getTemlate,
@@ -418,7 +568,6 @@ export default {
       }
       let index = 0
       let check = true
-
       for (let [i, v] of this.arrayTem.entries()) {
         if (String(data1.idfrom) === String(v.idfrom)) {
           index = i
@@ -427,21 +576,24 @@ export default {
           check = false
         }
       }
-
       if (check) {
-        this.index_edit = index
+        this.index_edit = index % 5
         data1.ExpirationDate = this.convertDate(data1.ExpirationDate.trim(), '-', 'dd_mm_yyyy')
         data1.VersionDate = this.convertDate(data1.VersionDate.trim(), '-', 'dd_mm_yyyy')
         this.arrayTem[-2] = this.arrayTem[index]
         this.arrayTem.splice(index, 1, data1)
       }
-
       this.arrayTem[-2].node2 = 'Edit'
       this.dropLeft(event.target.parentNode.parentNode.childNodes[0])
-      this.arrayTemtam = []
-      for (const [i] of this.arrayTem.entries()) {
-        this.arrayTemtam.push(this.arrayTem[i])
-      }
+      // this.arrayTemtam = []
+
+      // for (let [i, v] of this.arrayTem.entries()) {
+      //   this.arrayTemtam.push(v)
+      //   alert(this.arrayTemtam[i].idform)
+      // }
+      // this.arrayTemtam = []
+      this.trangtam = this.trang
+      this.trang = -10
     },
     confirmEdit (e) {
       const lengtharrayTem = e.target.parentNode.parentNode
@@ -488,15 +640,17 @@ export default {
         })
         this.arrayTem.splice(index, 1, DataAddfilterC)
         this.arrayTemtam = []
+        this.trangtam = this.trang
+        this.trang = -10
         // for (let i in this.arrayTem) {
         //   this.arrayTemtam.push(this.arrayTem[i])
         // }
         // for (const v of this.arrayTem) {
         //   this.arrayTemtam.push(v)
         // }
-        this.arrayTem.forEach((v, i) => // foreach duyetj từ 0 - length
-          this.arrayTemtam.push(v)
-        )
+        // this.arrayTem.forEach((v, i) => // foreach duyetj từ 0 - length
+        //   this.arrayTemtam.push(v)
+        // )
         // for (let i = 0; i <= this.arrayTem.length - 1; i++) {
         //   this.arrayTemtam.push(this.arrayTem[i])
         // }
@@ -523,15 +677,18 @@ export default {
         }
       }
       this.arrayTem.splice(index, 1, this.arrayTem[-2])
-      this.arrayTemtam = []
-      for (let v of this.arrayTem) {
-        this.arrayTemtam.push(v)
-      }
+      // this.arrayTemtam = []
+      // for (let v of this.arrayTem) {
+      //   this.arrayTemtam.push(v)
+      // }
+      this.trangtam = this.trang
+      this.trang = -10
       // for (let i = 0; i <= this.arrayTem.length - 1; i++) {
       //   this.arrayTemtam.push(this.arrayTem[i])
       // }
     },
     editLine (e) {
+      history.pushState(null, null, 'editLine')
       let elementtable = event.target.parentNode.childNodes
       let getid = elementtable[0].innerHTML
       let getTemlate = elementtable[2].innerHTML
@@ -553,6 +710,7 @@ export default {
       }
       let index = 0
       let check = true
+
       for (let [i] of this.arrayTem.entries()) {
         if (String(data1.idfrom) === String(this.arrayTem[i].idfrom)) { // cùng dữ liệu nếu không sẻ bị lỗi
           index = i
@@ -562,17 +720,19 @@ export default {
         }
       }
       if (check) {
-        this.index_edit = index
+        this.index_edit = index % 5
         data1.ExpirationDate = this.convertDate(data1.ExpirationDate.trim(), '-', 'dd_mm_yyyy')
         data1.VersionDate = this.convertDate(data1.VersionDate.trim(), '-', 'dd_mm_yyyy')
         this.arrayTem[-2] = this.arrayTem[index]
         this.arrayTem.splice(index, 1, data1)
       }
       this.arrayTem[-2].node2 = 'Edit'
-      this.arrayTemtam = []
-      for (let v of this.arrayTem) {
-        this.arrayTemtam.push(v)
-      }
+      // this.arrayTemtam = []
+      // for (let v of this.arrayTem) {
+      //   this.arrayTemtam.push(v)
+      // }
+      this.trangtam = this.trang
+      this.trang = -10
     },
     removeLine (e) {
       this.showModel = true
@@ -611,31 +771,42 @@ export default {
           check = false
         }
       }
+      if (this.search.length !== 0) {
+        for (let [i] of this.searchtam.entries()) {
+          if (String(e.id) === String(this.searchtam[i].idfrom)) {
+            this.searchtam.splice(i, 1)
+          }
+        }
+      }
       if (check) {
         this.arrayTem.splice(index, 1)
         this.$emit('removeline', e)
       } else {
         alert('đang có trường xử lý')
       }
-      this.arrayTemtam = []
-      for (let v of this.arrayTem) {
-        this.arrayTemtam.push(v)
-      }
+      this.trangtam = this.trang
+      this.trang = -10
+      // this.arrayTemtam = []
+      // for (let v of this.arrayTem) {
+      //   this.arrayTemtam.push(v)
+      // }
     },
     cancelRemove (e) {
       this.showModel = e
     },
     clickCreateTemp (e) {
+      history.pushState(null, null, 'Create')
+      this.checkSearchtam = false
       this.showModel = true
       this.confirmBoolean = 'Create'
       // console.log("apphihi"+ this.create_confirm_boolean)
       // this.$emit('changeeven',e)
       this.arrayTemtam = []
-      for (let v of this.arrayTem) {
-        this.arrayTemtam.push(v)
-      }
+      this.trangtam = this.trang
+      this.trang = -10
     },
     createTem (e) {
+      history.pushState(null, null, 'Home')
       this.showModel = false
       let check = true
       e.ExpirationDate = this.convertDate(e.ExpirationDate, '-', 'yyyy_mm_dd')
@@ -657,17 +828,18 @@ export default {
       this.arrayTem.Temlate = this.arrayTem.Temlate + ' '
       this.create_confirm_boolean = e.return_create_confirm_boolean
       this.arrayTemtam = []
-      for (let [, v] of this.arrayTem.entries()) {
-        this.arrayTemtam.push(v)
-      }
+      this.trang = -10
     },
     confirmEnter (e) {
       this.confirmEdit(e)
     },
     confirmCancel (e) { // dùng để xác nhận cancel khi đang tạo teamplate
+      history.pushState(null, null, 'Home')
       this.showModel = false
     },
     addTableLine (e) {
+      history.pushState(null, null, 'addLine')
+      this.checkSearchtam = false
       var data = {
         idfrom: '',
         Temlate: '',
@@ -685,14 +857,17 @@ export default {
           check = false
         }
       }
+      let indexAddLine = this.trang * 5 - 1
       if (check) {
         data.idfrom = this.randomNumber()
-        this.arrayTem.push(data)
+        this.arrayTem.splice(indexAddLine, 0, data)
       }
-      this.arrayTemtam = []
-      for (let [, v] of this.arrayTem.entries()) {
-        this.arrayTemtam.push(v)
-      }
+      // this.arrayTemtam = []
+      // for (let [, v] of this.arrayTem.entries()) {
+      //   this.arrayTemtam.push(v)
+      // }
+      this.trangtam = this.trang
+      this.trang = -10
       this.Temlate = ''
       this.Type = ''
       this.Company = ''
@@ -701,10 +876,11 @@ export default {
       this.Active = ''
     },
     confirmAddLine (e) {
+      history.pushState(null, null, 'Home')
       const lengtharrayTem = e.target.parentNode.parentNode
       let Temlate = lengtharrayTem.childNodes[2].childNodes[0].value.length
       if (Temlate === 0) {
-        alert('Trường Dữ Liệu Chưa được nhập')
+        alert('Trường Tamplate chưa được nhập')
       } else {
         let getid = e.target.parentNode.parentNode.childNodes[0].innerHTML
         let type, Acti
@@ -725,7 +901,14 @@ export default {
         }
         DataAddfilterC.ExpirationDate = this.convertDate(DataAddfilterC.ExpirationDate, '-', 'yyyy_mm_dd')
         DataAddfilterC.VersionDate = this.convertDate(DataAddfilterC.VersionDate, '-', 'yyyy_mm_dd')
-        this.arrayTem.splice(this.arrayTem.length - 1, 1, DataAddfilterC)// thay thế phần từ cuối cùng
+        let idform = e.target.parentNode.parentNode.childNodes[0].innerHTML
+        for (let [i] of this.arrayTem.entries()) {
+          if (String(this.arrayTem[i].idfrom) === idform) {
+            this.arrayTem.splice(i, 1, DataAddfilterC)// thay thế phần từ cuối cùng
+          }
+        }
+        // let indexAddLine = this.trang * 5 - 1
+        // this.arrayTem.splice(indexAddLine, 1, DataAddfilterC)// thay thế phần từ cuối cùng
         // this.arrayTem.push(e)
         //   this.Temlate = "";
         //   this.Type = "";
@@ -733,10 +916,12 @@ export default {
         //   this.VersionDate = "";
         //   expirationDate = "";
         //   this.Active = "";
-        this.arrayTemtam = []
-        for (let [, v] of this.arrayTem.entries()) {
-          this.arrayTemtam.push(v)
-        }
+        // this.arrayTemtam = []
+        // for (let [, v] of this.arrayTem.entries()) {
+        //   this.arrayTemtam.push(v)
+        // }
+        this.trangtam = this.trang
+        this.trang = -10
         // cập nhật rỗng cho các input khi them line mới
         this.idarrayTem = ''
         this.Temlate = ''
@@ -748,20 +933,26 @@ export default {
       }
     },
     cancelAddLine (e) {
-      this.arrayTem.pop()
-      this.arrayTemtam = []
-      for (let [, v] of this.arrayTem.entries()) {
-        this.arrayTemtam.push(v)
-      }
+      history.pushState(null, null, 'Home')
+      let indexAddLine = this.trang * 5 - 1
+      this.arrayTem.splice(indexAddLine, 1)
+      // this.arrayTemtam = []
+      // for (let [, v] of this.arrayTem.entries()) {
+      //   this.arrayTemtam.push(v)
+      // }
+      this.trangtam = this.trang
+      this.trang = -10
     },
     sortData (e) {
+      this.checkSearchtam = false
       let tt = e.target.innerHTML.slice(0, 4)
       this.arrayTemtam = []
       for (let i = 0; i <= this.arrayTem.length - 1; i++) {
         this.arrayTemtam.push(this.arrayTem[i])
       }
+      history.pushState(null, null, 'sort=' + tt)
       switch (tt) {
-        case 'form':
+        case 'Form':
           this.sortTem = ''
           this.sortTyp = ''
           this.sortCom = ''
@@ -769,33 +960,34 @@ export default {
           this.sortExp = ''
           this.sortACT = ''
           if (this.typeSort === 'up') {
-            for (let i = 0; i < this.arrayTemtam.length - 1; i++) { // buble sort
-              for (let j = this.arrayTemtam.length - 1; j > 0; j--) {
-                if (this.arrayTemtam[j].idfrom < this.arrayTemtam[ j - 1 ].idfrom) {
+            for (let i = 0; i < this.arrayTem.length - 1; i++) { // buble sort
+              for (let j = this.arrayTem.length - 1; j > 0; j--) {
+                if (this.arrayTem[j].idfrom < this.arrayTem[ j - 1 ].idfrom) {
                   let tam = {}
-                  tam = this.arrayTemtam[j]
-                  this.arrayTemtam[j] = this.arrayTemtam[ j - 1 ]
-                  this.arrayTemtam[ j - 1 ] = tam
+                  tam = this.arrayTem[j]
+                  this.arrayTem[j] = this.arrayTem[ j - 1 ]
+                  this.arrayTem[ j - 1 ] = tam
                 }
               }
             }
             this.sortfor = '↓'
             this.typeSort = 'down'
           } else {
-            for (let i = 0; i < this.arrayTemtam.length - 1; i++) { // buble sort
-              for (let j = this.arrayTemtam.length - 1; j > 0; j--) {
-                if (this.arrayTemtam[j].idfrom > this.arrayTemtam[ j - 1 ].idfrom) {
+            for (let i = 0; i < this.arrayTem.length - 1; i++) { // buble sort
+              for (let j = this.arrayTem.length - 1; j > 0; j--) {
+                if (this.arrayTem[j].idfrom > this.arrayTem[ j - 1 ].idfrom) {
                   let tam = {}
-                  tam = this.arrayTemtam[j]
-                  this.arrayTemtam[j] = this.arrayTemtam[ j - 1 ]
-                  this.arrayTemtam[ j - 1 ] = tam
+                  tam = this.arrayTem[j]
+                  this.arrayTem[j] = this.arrayTem[ j - 1 ]
+                  this.arrayTem[ j - 1 ] = tam
                 }
               }
             }
             this.sortfor = '↑'
             this.typeSort = 'up'
           }
-
+          this.trangtam = this.trang
+          this.trang = -10
           break
         case 'Type':
           this.sortfor = ''
@@ -805,7 +997,7 @@ export default {
           this.sortExp = ''
           this.sortACT = ''
           if (this.typeSort === 'up') {
-            this.arrayTemtam.sort((a, b) => {
+            this.arrayTem.sort((a, b) => {
               let titleA = a.Type.toLowerCase()
               let titleB = b.Type.toLowerCase()
               if (titleA < titleB) return -1
@@ -815,7 +1007,7 @@ export default {
             this.sortTyp = '↓'
             this.typeSort = 'down'
           } else {
-            this.arrayTemtam.sort((a, b) => {
+            this.arrayTem.sort((a, b) => {
               let titleA = a.Type.toLowerCase()
               let titleB = b.Type.toLowerCase()
               if (titleA < titleB) return 1
@@ -825,6 +1017,8 @@ export default {
             this.sortTyp = '↑'
             this.typeSort = 'up'
           }
+          this.trangtam = this.trang
+          this.trang = -10
           break
         case 'TemP':
           this.sortfor = ''
@@ -834,7 +1028,7 @@ export default {
           this.sortExp = ''
           this.sortACT = ''
           if (this.typeSort === 'up') {
-            this.arrayTemtam.sort((a, b) => {
+            this.arrayTem.sort((a, b) => {
               let titleA = a.Temlate.toLowerCase()
               let titleB = b.Temlate.toLowerCase()
               if (titleA < titleB) return -1
@@ -844,7 +1038,7 @@ export default {
             this.sortTem = '↓'
             this.typeSort = 'down'
           } else {
-            this.arrayTemtam.sort((a, b) => {
+            this.arrayTem.sort((a, b) => {
               let titleA = a.Temlate.toLowerCase()
               let titleB = b.Temlate.toLowerCase()
               if (titleA < titleB) return 1
@@ -854,6 +1048,8 @@ export default {
             this.sortTem = '↑'
             this.typeSort = 'up'
           }
+          this.trangtam = this.trang
+          this.trang = -10
           break
         case 'Comp':
           this.sortfor = ''
@@ -863,7 +1059,7 @@ export default {
           this.sortExp = ''
           this.sortACT = ''
           if (this.typeSort === 'up') {
-            this.arrayTemtam.sort((a, b) => {
+            this.arrayTem.sort((a, b) => {
               let titleA = a.Company.toLowerCase()
               let titleB = b.Company.toLowerCase()
               if (titleA < titleB) return -1
@@ -873,7 +1069,7 @@ export default {
             this.sortCom = '↓'
             this.typeSort = 'down'
           } else {
-            this.arrayTemtam.sort((a, b) => {
+            this.arrayTem.sort((a, b) => {
               let titleA = a.Company.toLowerCase()
               let titleB = b.Company.toLowerCase()
               if (titleA < titleB) return 1
@@ -883,6 +1079,8 @@ export default {
             this.sortCom = '↑'
             this.typeSort = 'up'
           }
+          this.trangtam = this.trang
+          this.trang = -10
           break
         case 'ACTI':
           this.sortfor = ''
@@ -892,7 +1090,7 @@ export default {
           this.sortVer = ''
           this.sortExp = ''
           if (this.typeSort === 'up') {
-            this.arrayTemtam.sort((a, b) => {
+            this.arrayTem.sort((a, b) => {
               let titleA = a.Active.toLowerCase()
               let titleB = b.Active.toLowerCase()
               if (titleA < titleB) return -1
@@ -902,7 +1100,7 @@ export default {
             this.sortACT = '↓'
             this.typeSort = 'down'
           } else {
-            this.arrayTemtam.sort((a, b) => {
+            this.arrayTem.sort((a, b) => {
               let titleA = a.Active.toLowerCase()
               let titleB = b.Active.toLowerCase()
               if (titleA < titleB) return 1
@@ -912,6 +1110,8 @@ export default {
             this.sortACT = '↑'
             this.typeSort = 'up'
           }
+          this.trangtam = this.trang
+          this.trang = -10
           break
         case 'Expi':
           this.sortfor = ''
@@ -921,7 +1121,7 @@ export default {
           this.sortVer = ''
           this.sortACT = ''
           if (this.typeSort === 'up') {
-            this.arrayTemtam.sort((a, b) => {
+            this.arrayTem.sort((a, b) => {
               a = a.ExpirationDate.toString().split('-')
               b = b.ExpirationDate.toString().split('-')
               return a[2] - b[2] || a[1] - b[1] || a[0] - b[0]
@@ -929,7 +1129,7 @@ export default {
             this.sortExp = '↓'
             this.typeSort = 'down'
           } else {
-            this.arrayTemtam.sort((a, b) => {
+            this.arrayTem.sort((a, b) => {
               a = a.ExpirationDate.toString().split('-')
               b = b.ExpirationDate.toString().split('-')
               return b[2] - a[2] || b[1] - a[1] || b[0] - a[0]
@@ -937,6 +1137,8 @@ export default {
             this.sortExp = '↑'
             this.typeSort = 'up'
           }
+          this.trangtam = this.trang
+          this.trang = -10
           break
         case 'Vers':
           this.sortfor = ''
@@ -946,7 +1148,7 @@ export default {
           this.sortVer = ''
           this.sortACT = ''
           if (this.typeSort === 'up') {
-            this.arrayTemtam.sort((a, b) => {
+            this.arrayTem.sort((a, b) => {
               a = a.VersionDate.toString().split('-')
               b = b.VersionDate.toString().split('-')
               return a[2] - b[2] || a[1] - b[1] || a[0] - b[0]
@@ -954,7 +1156,7 @@ export default {
             this.sortVer = '↓'
             this.typeSort = 'down'
           } else {
-            this.arrayTemtam.sort((a, b) => {
+            this.arrayTem.sort((a, b) => {
               a = a.VersionDate.toString().split('-')
               b = b.VersionDate.toString().split('-')
               return b[2] - a[2] || b[1] - a[1] || b[0] - a[0]
@@ -962,52 +1164,70 @@ export default {
             this.sortVer = '↑'
             this.typeSort = 'up'
           }
+          this.trangtam = this.trang
+          this.trang = -10
           break
       }
     },
     removeline (e) {
       this.evenremove = e
       this.arrayTemtam = []
-      for (let i = 0; i <= this.arrayTem.length - 1; i++) {
-        this.arrayTemtam.push(this.arrayTem[i])
-      }
+      // for (let i = 0; i <= this.arrayTem.length - 1; i++) {
+      //   this.arrayTemtam.push(this.arrayTem[i])
+      // }
+      this.trangtam = this.trang
+      this.trang = -10
     },
     filterData (e) {
+      history.pushState(null, null, 'filter')
       this.showFilter = true
     },
     confirmFilter (e) {
+      // if (this.search.length !== 0) {
+      this.checkSearchtam = true
+      // }
+      // this.searchtam = []
+      // for (let [i] of this.arrayTem.entries()) {
+      //   this.searchtam.push(this.arrayTem[i])
+      // }
+      // for (let i = this.searchtam.length - 1; i >= 0; i--) {
+      //   if (this.searchtam[i].Temlate.includes(this.search)) {
+      //   } else {
+      //     this.searchtam.splice(i, 1)
+      //   }
+      // }
       this.showFilter = false
-      this.arrayTemtam = []
+      this.searchtam = []
       for (let i = 0; i <= this.arrayTem.length - 1; i++) {
-        this.arrayTemtam.push(this.arrayTem[i])
+        this.searchtam.push(this.arrayTem[i])
       }
       if (e.checkall === 'loc') {
-        for (let i = this.arrayTemtam.length - 1; i >= 0; i--) {
-          if (this.arrayTemtam[i].Type.includes(e.Type)) {
+        for (let i = this.searchtam.length - 1; i >= 0; i--) {
+          if (this.searchtam[i].Type.includes(e.Type)) {
           } else {
-            this.arrayTemtam.splice(i, 1)
+            this.searchtam.splice(i, 1)
           }
         }
-        for (let i = this.arrayTemtam.length - 1; i >= 0; i--) {
-          if (this.arrayTemtam[i].Company.includes(e.Company)) {
+        for (let i = this.searchtam.length - 1; i >= 0; i--) {
+          if (this.searchtam[i].Company.includes(e.Company)) {
           } else {
-            this.arrayTemtam.splice(i, 1)
+            this.searchtam.splice(i, 1)
           }
         }
-        for (let i = this.arrayTemtam.length - 1; i >= 0; i--) {
-          if (this.arrayTemtam[i].Active.includes(e.Active)) {
+        for (let i = this.searchtam.length - 1; i >= 0; i--) {
+          if (this.searchtam[i].Active.includes(e.Active)) {
           } else {
-            this.arrayTemtam.splice(i, 1)
+            this.searchtam.splice(i, 1)
           }
         }
 
         //  if (e.VersionDate !== '' && e.VersionDate[4] === '-') { e.VersionDate = this.convertDate(e.VersionDate, '-', 'yyyy_mm_dd') }
         if (e.VersionDate1[4] === '-') {
-          for (let i = this.arrayTemtam.length - 1; i >= 0; i--) {
+          for (let i = this.searchtam.length - 1; i >= 0; i--) {
             let numberVer
-            let ngayv = Number(this.arrayTemtam[i].VersionDate.slice(0, 2))
-            let thangv = Number(this.arrayTemtam[i].VersionDate.slice(3, 5))
-            let namv = Number(this.arrayTemtam[i].VersionDate.slice(6, 10))
+            let ngayv = Number(this.searchtam[i].VersionDate.slice(0, 2))
+            let thangv = Number(this.searchtam[i].VersionDate.slice(3, 5))
+            let namv = Number(this.searchtam[i].VersionDate.slice(6, 10))
             numberVer = namv * 360 + thangv * 30 + ngayv
             let ngay
             let thang
@@ -1028,23 +1248,28 @@ export default {
             }
             if (dayNumber1 <= numberVer && numberVer <= datNumber2) {
             } else {
-              this.arrayTemtam.splice(i, 1)
+              this.searchtam.splice(i, 1)
             }
           }
         }
       } else {
       }
       this.checkFilterData = ''
+      this.trangtam = this.trang
+      this.trang = -10
     },
     closeFilter (e) {
       this.showFilter = false
     },
     allData (e) {
+      this.checkSearchtam = false
       this.showFilter = false
       this.arrayTemtam = []
       for (let [, v] of this.arrayTem.entries()) {
         this.arrayTemtam.push(v)
       }
+      this.trangtam = this.trang
+      this.trang = -10
     },
     dropLeft (e) { // kiểm tra dropup hiển thị và ẩn
       let checkEvent
@@ -1081,6 +1306,7 @@ export default {
         return ngay + tt + thang + tt + nam
       }
     },
+    // randomNumber: function () {
     randomNumber: function () {
       let random10019999 = 1
       let t = true
@@ -1250,11 +1476,12 @@ a {
   padding: 0px;
 }
 #nextpage {
+  display: flex;
   position: absolute;
   width: 100%;
   text-align: center;
   bottom: 25px;
-  background-color: NONE;
+  background-color: none;
   width: 40px;
   margin-left: 50%;
 }
